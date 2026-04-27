@@ -1,0 +1,1232 @@
+html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Shop quality products imported directly from China. Rechargeable Portable Blender and Mini Washing Machine. Delivered nationwide in Nigeria."/>
+  <title>Products — SHOPIDY</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet"/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/components.css"/>
+  <link rel="stylesheet" href="css/layout.css"/>
+
+  <style>
+    /* ── PAGE-SPECIFIC STYLES ── */
+
+    /* hero — products variant */
+    .products-hero {
+      background: var(--color-navy);
+      padding: var(--space-12) var(--space-5) var(--space-20);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .products-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,158,219,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .products-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 56px;
+      background: var(--color-surface);
+      clip-path: ellipse(54% 100% at 50% 100%);
+    }
+
+    .products-hero__inner {
+      position: relative;
+      z-index: var(--z-base);
+      max-width: 600px;
+      margin-inline: auto;
+    }
+
+    .products-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-3xl), 7vw, var(--text-5xl));
+      font-weight: 800;
+      color: var(--color-white);
+      line-height: var(--leading-tight);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-5);
+    }
+
+    .products-hero__title em {
+      font-style: normal;
+      color: var(--color-sky);
+    }
+
+    .products-hero__sub {
+      font-size: var(--text-base);
+      color: var(--text-on-dark-soft);
+      line-height: var(--leading-loose);
+      margin-bottom: var(--space-6);
+    }
+
+    .products-hero__pills {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+
+    .products-hero__pill {
+      background: rgba(74,158,219,0.12);
+      border: 1px solid rgba(74,158,219,0.22);
+      color: var(--color-sky);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-pill);
+      font-family: var(--font-sans);
+    }
+
+    /* ── PRODUCT BLOCK ── */
+    .product-section {
+      padding: var(--space-20) var(--space-5);
+      border-bottom: 1px solid var(--color-border-soft);
+    }
+
+    .product-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .product-section--tinted {
+      background: var(--color-surface-2);
+    }
+
+    .product-layout {
+      max-width: 960px;
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+
+    .product-layout--reversed {
+      direction: rtl;
+    }
+
+    .product-layout--reversed > * {
+      direction: ltr;
+    }
+
+    /* ── SLIDER ── */
+    .product-slider {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: var(--color-surface-2);
+      aspect-ratio: 1 / 1;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .product-slider__track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .product-slider__slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.04);
+      transition:
+        opacity   600ms var(--ease),
+        transform 600ms var(--ease);
+      pointer-events: none;
+    }
+
+    .product-slider__slide.is-active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .product-slider__slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* placeholder — shown until real images added */
+    .product-slider__placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      background: linear-gradient(135deg, var(--color-sky-pale), var(--color-surface-2));
+      font-size: 5rem;
+      color: var(--text-ghost);
+    }
+
+    .product-slider__placeholder-label {
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+      color: var(--text-ghost);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+
+    /* arrows */
+    .product-slider__arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: var(--z-raised);
+      font-size: 1.25rem;
+      color: var(--color-navy);
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      transition:
+        opacity    var(--duration-fast) var(--ease),
+        background var(--duration-fast) var(--ease),
+        transform  var(--duration-fast) var(--ease);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .product-slider:hover .product-slider__arrow,
+    .product-slider__arrow:focus-visible {
+      opacity: 1;
+    }
+
+    /* always visible on touch */
+    @media (hover: none) {
+      .product-slider__arrow { opacity: 1; }
+    }
+
+    .product-slider__arrow:hover {
+      background: var(--color-white);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .product-slider__arrow--prev { left: var(--space-3); }
+    .product-slider__arrow--next { right: var(--space-3); }
+
+    /* dots */
+    .product-slider__dots {
+      position: absolute;
+      bottom: var(--space-4);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: var(--space-2);
+      z-index: var(--z-raised);
+    }
+
+    .product-slider__dot {
+      height: 7px;
+      width: 7px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.4);
+      border: 1.5px solid rgba(255,255,255,0.65);
+      cursor: pointer;
+      transition:
+        background var(--duration-base) var(--ease),
+        width     var(--duration-base) var(--ease);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .product-slider__dot.is-active {
+      background: var(--color-white);
+      width: 22px;
+    }
+
+    /* badge on image */
+    .product-slider__badge {
+      position: absolute;
+      top: var(--space-4);
+      left: var(--space-4);
+      z-index: var(--z-raised);
+    }
+
+    /* ── PRODUCT INFO ── */
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .product-info__category {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-sky);
+      font-family: var(--font-sans);
+    }
+
+    .product-info__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-2xl), 3.5vw, var(--text-3xl));
+      font-weight: 900;
+      color: var(--text-primary);
+      line-height: var(--leading-tight);
+      letter-spacing: -0.015em;
+    }
+
+    .product-info__hook {
+      font-size: var(--text-base);
+      color: var(--text-muted);
+      line-height: var(--leading-loose);
+    }
+
+    .product-info__key {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      background: var(--color-sky-pale);
+      border: 1px solid rgba(74,158,219,0.3);
+      border-radius: var(--radius-md);
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .product-info__key-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .product-info__key-text {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--color-navy-mid);
+    }
+
+    /* features */
+    .product-info__features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .product-info__feature {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--text-body);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border-soft);
+      line-height: var(--leading-base);
+    }
+
+    .product-info__feature:last-child {
+      border-bottom: none;
+    }
+
+    .product-info__feature-check {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-sky-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-navy-mid);
+    }
+
+    /* who it's for */
+    .product-info__for {
+      background: var(--color-surface-2);
+      border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-5);
+    }
+
+    .product-info__for-label {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-ghost);
+      font-family: var(--font-sans);
+      margin-bottom: var(--space-3);
+    }
+
+    .product-info__for-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .product-info__for-tag {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      padding: var(--space-1) var(--space-3);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+    }
+
+    /* price */
+    .product-info__price-row {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-3);
+    }
+
+    .product-info__price {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 900;
+      color: var(--color-navy);
+      line-height: 1;
+    }
+
+    .product-info__delivery {
+      font-size: var(--text-xs);
+      color: var(--text-ghost);
+      line-height: var(--leading-base);
+    }
+
+    .product-info__delivery strong {
+      color: var(--text-muted);
+    }
+
+    /* ── WHY IDY ── */
+    .why-section {
+      background: var(--color-ink);
+      padding: var(--space-16) var(--space-5);
+    }
+
+    .why-grid {
+      max-width: 960px;
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-5);
+    }
+
+    .why-item {
+      text-align: center;
+      padding: var(--space-6) var(--space-4);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg);
+    }
+
+    .why-item__icon {
+      font-size: 1.75rem;
+      margin-bottom: var(--space-3);
+    }
+
+    .why-item__title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-white);
+      margin-bottom: var(--space-2);
+    }
+
+    .why-item__body {
+      font-size: var(--text-sm);
+      color: var(--text-on-dark-soft);
+      line-height: var(--leading-loose);
+    }
+
+    /* ── ALSO SECTION ── */
+    .also-section {
+      padding: var(--space-16) var(--space-5);
+      background: var(--color-surface-2);
+    }
+
+    .also-grid {
+      max-width: 960px;
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+      margin-top: var(--space-10);
+    }
+
+    .also-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex;
+      gap: var(--space-5);
+      align-items: flex-start;
+      text-decoration: none;
+      transition:
+        border-color var(--duration-base) var(--ease),
+        box-shadow   var(--duration-base) var(--ease),
+        transform    var(--duration-base) var(--ease);
+    }
+
+    .also-card:hover {
+      border-color: var(--color-sky);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .also-card__icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .also-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .also-card__desc {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      line-height: var(--leading-loose);
+      margin-bottom: var(--space-3);
+    }
+
+    .also-card__price {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 800;
+      color: var(--color-navy);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .product-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+      }
+
+      .product-layout--reversed {
+        direction: ltr;
+      }
+
+      .product-slider {
+        aspect-ratio: 4 / 3;
+        border-radius: var(--radius-lg);
+      }
+
+      .product-slider__arrow {
+        opacity: 1;
+        width: 34px;
+        height: 34px;
+        font-size: 1rem;
+      }
+
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .also-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-section {
+        padding: var(--space-12) var(--space-5);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .products-hero__pills {
+        gap: var(--space-2);
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-3);
+      }
+
+      .also-card {
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+    }
+  </style>
+</head>
+<body class="page">
+
+  <!-- ── NAV ── -->
+  <header>
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav__inner">
+
+        <a href="home.html" class="logo" aria-label="SHOPIDY home">
+          <span class="logo__shop">SHOP</span><span class="logo__idy">IDY</span>
+        </a>
+
+        <ul class="nav__links" role="list">
+          <li><a href="home.html"     class="nav__link">Home</a></li>
+          <li><a href="pinduoduo.html" class="nav__link">Pinduoduo</a></li>
+          <li><a href="1688.html"      class="nav__link">1688 Class</a></li>
+          <li><a href="products.html"  class="nav__link is-active">Products</a></li>
+        </ul>
+
+        <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20order%20a%20product."
+           target="_blank"
+           rel="noopener noreferrer"
+           class="nav__cta">
+          💬 Order Now
+        </a>
+
+        <button class="nav__burger"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="nav-drawer"
+                onclick="toggleNav(this)">
+          <span class="nav__burger-line"></span>
+          <span class="nav__burger-line"></span>
+          <span class="nav__burger-line"></span>
+        </button>
+
+      </div>
+    </nav>
+
+    <!-- mobile drawer -->
+    <div id="nav-drawer" class="nav__drawer" aria-hidden="true">
+      <ul class="nav__drawer-links" role="list">
+        <li><a href="home.html"     class="nav__drawer-link">Home</a></li>
+        <li><a href="pinduoduo.html" class="nav__drawer-link">Pinduoduo Class</a></li>
+        <li><a href="1688.html"      class="nav__drawer-link">1688 Class</a></li>
+        <li><a href="products.html"  class="nav__drawer-link is-active">Products</a></li>
+      </ul>
+      <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20order%20a%20product."
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn btn--wa btn--full">
+        💬 Order via WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <main class="page__main nav-offset">
+
+    <!-- ── HERO ── -->
+    <section class="products-hero" aria-labelledby="hero-title">
+      <div class="products-hero__inner">
+        <span class="eyebrow" style="margin-bottom:var(--space-5);">Direct from China</span>
+        <h1 class="products-hero__title" id="hero-title">
+          I import these myself.<br/>
+          <em>That's why the<br/>price is right.</em>
+        </h1>
+        <p class="products-hero__sub">
+          No agents. No middlemen. No inflated prices.
+          Just quality products sourced directly from China —
+          delivered to your door anywhere in Nigeria.
+        </p>
+        <div class="products-hero__pills">
+          <span class="products-hero__pill">📦 Nationwide Delivery</span>
+          <span class="products-hero__pill">✅ China-Direct Quality</span>
+          <span class="products-hero__pill">💬 Order via WhatsApp</span>
+          <span class="products-hero__pill">🏭 Personally Tested</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         PRODUCT 1 — BLENDER
+    ══════════════════════════════════════ -->
+    <section class="product-section" aria-labelledby="blender-title">
+      <div class="product-layout">
+
+        <!-- SLIDER -->
+        <div class="product-slider reveal"
+             id="slider-blender"
+             role="region"
+             aria-label="Rechargeable Portable Blender images"
+             aria-roledescription="carousel">
+
+          <div class="product-slider__track">
+
+            <!-- Slide 1 -->
+            <div class="product-slider__slide is-active"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Image 1 of 2"
+                 id="blender-slide-0">
+              
+                <img src="assets/image.png"
+                     alt="Rechargeable Portable Blender — front view"
+                     loading="eager"/>
+              
+              <div class="product-slider__placeholder">
+                <span aria-hidden="true">🥤</span>
+                <span class="product-slider__placeholder-label">blender-1.jpg</span>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="product-slider__slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Image 2 of 2"
+                 id="blender-slide-1">
+              
+                <img src="assets/WhatsApp Image 2026-04-23 at 2.19.42 PM (1).jpeg"
+                     alt="Rechargeable Portable Blender — in use"
+                     loading="lazy"/>
+              
+              <div class="product-slider__placeholder">
+                <span aria-hidden="true">🥤</span>
+                <span class="product-slider__placeholder-label">blender-2.jpg</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Badge -->
+          <div class="product-slider__badge">
+            <span class="badge badge--gold">⚡ NEPA-Proof</span>
+          </div>
+
+          <!-- Arrows -->
+          <button class="product-slider__arrow product-slider__arrow--prev"
+                  aria-label="Previous image"
+                  onclick="slideProduct('blender', -1)">
+            ‹
+          </button>
+          <button class="product-slider__arrow product-slider__arrow--next"
+                  aria-label="Next image"
+                  onclick="slideProduct('blender', 1)">
+            ›
+          </button>
+
+          <!-- Dots -->
+          <div class="product-slider__dots" role="tablist" aria-label="Blender images">
+            <button class="product-slider__dot is-active"
+                    role="tab"
+                    aria-selected="true"
+                    aria-label="Image 1"
+                    onclick="goToSlide('blender', 0)">
+            </button>
+            <button class="product-slider__dot"
+                    role="tab"
+                    aria-selected="false"
+                    aria-label="Image 2"
+                    onclick="goToSlide('blender', 1)">
+            </button>
+          </div>
+
+        </div>
+
+        <!-- INFO -->
+        <div class="product-info reveal reveal--delay-1">
+
+          <div>
+            <div class="product-info__category">Kitchen & Lifestyle</div>
+            <h2 class="product-info__title" id="blender-title">
+              Rechargeable<br/>Portable Blender
+            </h2>
+          </div>
+
+          <p class="product-info__hook">
+            NEPA took light again. So what?
+            This blender doesn't care. Charge it once and blend
+            your smoothies, shakes, and juices anywhere —
+            no socket, no generator, no wahala.
+          </p>
+
+          <div class="product-info__key">
+            <span class="product-info__key-icon" aria-hidden="true">⚡</span>
+            <span class="product-info__key-text">
+              Works 100% without electricity — charge once via USB, blend all day
+            </span>
+          </div>
+
+          <ul class="product-info__features" role="list">
+            <li class="product-info__feature">
+              <span class="product-info__feature-check" aria-hidden="true">✓</span>
+              Powerful rechargeable battery — charges via USB like your phone
+            </li>
+            <li class="product-info__feature">
+              <span class="product-info__feature-check" aria-hidden="true">✓</span>
+              Compact and portable — fits in your bag, your locker, your life
+            </li>
+            <li class="product-info__feature">
+              <span class="product-info__feature-check" aria-hidden="true">✓</span>
+              Strong enough for fruits, vegetables, and ice
+            </li>
+            <li class="product-info__feature">
+              <span class="product-info__feature-check" aria-hidden="true">✓</span>
+              Easy to clean — minimal parts, maximum convenience
+            </li>
+            <li class="product-info__feature">
+              <span class="product-info__feature-check" aria-hidden="true">✓</span>
+              Durable factory build — imported directly, no middleman markup
+            </li>
+          </ul>
+
+          <div class="product-info__for">
+            <div class="product-info__for-label">Perfect for</div>
+            <div class="product-info__for-tags">
+              <span class="product-info__for-tag">🎓 Students</span>
+              <span class="product-info__for-tag">💪 Gym Lovers</span>
+              <span class="product-info__for-tag">🥗 Health-Conscious</span>
+              <span class="product-info__for-tag">⚡ Off-Grid Homes</span>
+              <span class="product-info__for-tag">🏢 Office Workers</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="product-info__price-row">
+              <div class="product-info__price">₦21,000</div>
+            </div>
+            <p class="product-info__delivery" style="margin-top:var(--space-2);">
+              <strong>🚚 Nationwide delivery available.</strong><br/>
+              Delivery fee and timeline confirmed on WhatsApp based on your location.
+            </p>
+          </div>
+
+          <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20order%20the%20Rechargeable%20Portable%20Blender%20for%20%2321%2C000.%20Please%20share%20payment%20and%20delivery%20details."
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn--wa btn--lg btn--full">
+            💬 Order via WhatsApp — ₦21,000
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         PRODUCT 2 — WASHING MACHINE
+    ══════════════════════════════════════ -->
+    <section class="product-section product-section--tinted" aria-labelledby="washer-title">
+      <div class="product-layout product-layout--reversed">
+
+        <!-- SLIDER -->
+        <div class="product-slider reveal"
+             id="slider-washer"
+             role="region"
+             aria-label="Mini Washing Machine images"
+             aria-roledescription="carousel">
+
+          <div class="product-slider__track">
+
+            <!-- Slide 1 -->
+            <div class="product-slider__slide is-active"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Image 1 of 2"
+                 id="washer-slide-0">
+              
+            
+                <img src="assets/washer 1.jpeg"
+                     alt="4.5KG Mini Washing Machine — front view"
+                     loading="eager"/>
+              
+              <div class="product-slider__placeholder" style="background:linear-gradient(135deg,#E8F0FF,#D6E8FF);">
+                <span aria-hidden="true">🧺</span>
+                <span class="product-slider__placeholder-label">washer-1.jpg</span>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="product-slider__slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Image 2 of 2"
+                 id="washer-slide-1">
+              
+            
+                <img src="assets/image (1).png"
+                     alt="4.5KG Mini Washing Machine — side view"
+                     loading="lazy"/>
+            
+              <div class="product-slider__placeholder" style="background:linear-gradient(135deg,#D6E8FF,#E8F0FF);">
+                <span aria-hidden="true">🧺</span>
+                <span class="product-slider__placeholder-label">washer-2.jpg</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Badge -->
+          <div class="product-slider__badge">
+            <span class="badge badge--blue">🏠 Space-Saving</span>
+          </div>
+
+          <!-- Arrows -->
+          <button class="product-slider__arrow product-slider__arrow--prev"
+                  aria-label="Previous image"
+                  onclick="slideProduct('washer', -1)">
+            ‹
+          </button>
+          <button class="product-slider__arrow product-slider__arrow--next"
+                  aria-label="Next image"
+                  onclick="slideProduct('washer', 1)">
+            ›
+          </button>
+
+          <!-- Dots -->
+          <div class="product-slider__dots" role="tablist" aria-label="Washer images">
+            <button class="product-slider__dot is-active"
+                    role="tab"
+                    aria-selected="true"
+                    aria-label="Image 1"
+                    onclick="goToSlide('washer', 0)">
+            </button>
+            <button class="product-slider__dot"
+                    role="tab"
+                    aria-selected="false"
+                    aria-label="Image 2"
+                    onclick="goToSlide('washer', 1)">
+            </button>
+          </div>
+
+        </div>
+
+        <!-- INFO -->
+        <div class="product-info reveal reveal--delay-1">
+
+          <div>
+            <div class="product-info__category">Home Appliances</div>
+            <h2 class="product-info__title" id="washer-title">
+              4.5KG Mini<br/>Washing Machine
+            </h2>
+          </div>
+
+          <p class="product-info__hook">
+            You don't need a full laundry room.
+            You need clean clothes, a small space, and a machine that
+            won't eat your budget. This is exactly that.
+          </p>
+
+          <div class="product-info__key">
+            <span class="product-info__key-icon" aria-hidden="true">🏠</span>
+            <span class="product-info__key-text">
+              Compact enough for hostel rooms, bedsitters, and small apartments
+            </span>
+          </div>
+
+          <ul class="product-info__features" role="list">
+            <li class="product-info__feature">
+              <span class="product-info__feature-check" aria-hidden="true">✓</span>
+              4.5KG capacity — handles a full week's worth of clothes
+            </li>
+            <li class="product-info__feature">
+              <span class="product-info__feature-check" aria-hidden="true">✓</span>
+              Multiple wash modes for different fabric types
+            </li>
+            <li class="product-info__feature">
+              <span class="product-info__feature-check" aria-hidden="true">✓</span>
+              Low water and energy consumption — easy on your bill
+            </li>
+            <li class="product-info__feature">
+              <span class="product-info__feature-check" aria-hidden="true">✓</span>
+              Easy setup — plug in and start. No installation needed
+            </li>
+            <li class="product-info__feature">
+              <span class="product-info__feature-check" aria-hidden="true">✓</span>
+              Durable factory motor — direct China quality, no agent markup
+            </li>
+          </ul>
+
+          <div class="product-info__for">
+            <div class="product-info__for-label">Perfect for</div>
+            <div class="product-info__for-tags">
+              <span class="product-info__for-tag">🎓 Students</span>
+              <span class="product-info__for-tag">🏠 Small Households</span>
+              <span class="product-info__for-tag">🛏️ Bedsitters</span>
+              <span class="product-info__for-tag">🏢 Working Professionals</span>
+              <span class="product-info__for-tag">💰 Budget-Conscious</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="product-info__price-row">
+              <div class="product-info__price">₦70,000</div>
+            </div>
+            <p class="product-info__delivery" style="margin-top:var(--space-2);">
+              <strong>🚚 Nationwide delivery available.</strong><br/>
+              Delivery fee and timeline confirmed on WhatsApp based on your location.
+            </p>
+          </div>
+
+          <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20order%20the%204.5KG%20Mini%20Washing%20Machine%20for%20%2370%2C000.%20Please%20share%20payment%20and%20delivery%20details."
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn--wa btn--lg btn--full">
+            💬 Order via WhatsApp — ₦70,000
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── WHY IDY ── -->
+    <section class="why-section" aria-labelledby="why-title">
+      <div style="max-width:960px;margin-inline:auto;text-align:center;margin-bottom:var(--space-10);">
+        <span class="eyebrow eyebrow--gold">Why Buy From SHOPIDY</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(var(--text-2xl),4vw,var(--text-3xl));font-weight:800;color:var(--color-white);margin-top:var(--space-3);" id="why-title">
+          We don't just sell it.<br/>We import it ourselves.
+        </h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item reveal">
+          <div class="why-item__icon" aria-hidden="true">🏭</div>
+          <div class="why-item__title">China-Direct</div>
+          <p class="why-item__body">
+            We source everything ourselves. No middlemen,
+            no inflated local prices. Just the real cost.
+          </p>
+        </div>
+        <div class="why-item reveal reveal--delay-1">
+          <div class="why-item__icon" aria-hidden="true">✅</div>
+          <div class="why-item__title">Personally Tested</div>
+          <p class="why-item__body">
+            We only sell products we've used and stand behind.
+            If it's here, it passed the test.
+          </p>
+        </div>
+        <div class="why-item reveal reveal--delay-2">
+          <div class="why-item__icon" aria-hidden="true">🚚</div>
+          <div class="why-item__title">Nationwide Delivery</div>
+          <p class="why-item__body">
+            We deliver anywhere in Nigeria.
+            Logistics confirmed on WhatsApp for your location.
+          </p>
+        </div>
+        <div class="why-item reveal reveal--delay-3">
+          <div class="why-item__icon" aria-hidden="true">💬</div>
+          <div class="why-item__title">Real Human Support</div>
+          <p class="why-item__body">
+            Every order goes through WhatsApp.
+            You talk to a real person, not a bot.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── LEARN TO IMPORT ── -->
+    <section class="also-section" aria-labelledby="also-title">
+      <div style="max-width:960px;margin-inline:auto;">
+        <div class="section__header section__header--center">
+          <span class="eyebrow">Go Further</span>
+          <h2 class="section__title" id="also-title">
+            Want to import products<br/>like these yourself?
+          </h2>
+          <p class="section__sub" style="margin-inline:auto;">
+            These products came from China. You can source them too —
+            and sell them, or just buy cheaper for yourself.
+            That's literally what our classes teach.
+          </p>
+        </div>
+
+        <div class="also-grid">
+          <a href="pinduoduo.html" class="also-card reveal">
+            <div class="also-card__icon" aria-hidden="true">📱</div>
+            <div>
+              <div class="also-card__name">Pinduoduo Class</div>
+              <p class="also-card__desc">
+                Start importing with low capital and zero experience.
+                Beginner-friendly, practical, and life-changing.
+              </p>
+              <div class="also-card__price">From ₦10,000</div>
+            </div>
+          </a>
+          <a href="1688.html" class="also-card reveal reveal--delay-1" style="border-color:var(--color-navy);">
+            <div class="also-card__icon" aria-hidden="true">🏭</div>
+            <div>
+              <div class="also-card__name">1688 Class</div>
+              <p class="also-card__desc">
+                Import in bulk directly from manufacturers.
+                Cut your costs and build a real supply chain.
+              </p>
+              <div class="also-card__price">From ₦15,000</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="home.html" class="logo logo--sm" aria-label="SHOPIDY home">
+            <span class="logo__shop">SHOP</span><span class="logo__idy">IDY</span>
+          </a>
+          <p class="footer__tagline">Import Smart. Sell Big. Live Free.</p>
+          <div class="footer__whatsapp">
+            📱 <strong>08168784078</strong>
+          </div>
+        </div>
+
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <div class="footer__nav-group">
+            <div class="footer__nav-title">Classes</div>
+            <ul class="footer__nav-links" role="list">
+              <li><a href="pinduoduo.html" class="footer__nav-link">Pinduoduo Class</a></li>
+              <li><a href="1688.html"      class="footer__nav-link">1688 Class</a></li>
+            </ul>
+          </div>
+          <div class="footer__nav-group">
+            <div class="footer__nav-title">Shop</div>
+            <ul class="footer__nav-links" role="list">
+              <li><a href="products.html" class="footer__nav-link">Products</a></li>
+              <li>
+                <a href="https://wa.me/2348168784078"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="footer__nav-link">
+                  WhatsApp
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2025 SHOPIDY. All rights reserved.</p>
+        <p class="footer__copy">Built for Nigerian hustlers.</p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ── SCRIPTS ── -->
+  <script>
+    /* ── NAV ── */
+    function toggleNav(burger) {
+      const drawer = document.getElementById('nav-drawer');
+      const isOpen = burger.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', isOpen);
+      drawer.classList.toggle('is-open', isOpen);
+      drawer.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    document.querySelectorAll('.nav__drawer-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const burger = document.querySelector('.nav__burger');
+        const drawer = document.getElementById('nav-drawer');
+        burger.classList.remove('is-open');
+        burger.setAttribute('aria-expanded', 'false');
+        drawer.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+
+
+    /* ── SLIDER ENGINE ── */
+    const sliderState = {
+      blender: { current: 0, total: 2, timer: null },
+      washer:  { current: 0, total: 2, timer: null }
+    };
+
+    function goToSlide(id, index) {
+      const state = sliderState[id];
+      const total = state.total;
+      index = (index + total) % total;
+      state.current = index;
+
+      /* slides */
+      for (let i = 0; i < total; i++) {
+        const slide = document.getElementById(`${id}-slide-${i}`);
+        if (!slide) continue;
+        slide.classList.toggle('is-active', i === index);
+      }
+
+      /* dots */
+      const dots = document.querySelectorAll(`#slider-${id} .product-slider__dot`);
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === index);
+        dot.setAttribute('aria-selected', i === index);
+      });
+
+      /* reset autoplay timer */
+      clearInterval(state.timer);
+      startAutoPlay(id);
+    }
+
+    function slideProduct(id, dir) {
+      goToSlide(id, sliderState[id].current + dir);
+    }
+
+    function startAutoPlay(id) {
+      const state = sliderState[id];
+      state.timer = setInterval(() => {
+        goToSlide(id, state.current + 1);
+      }, 4000);
+    }
+
+    /* pause on hover */
+    ['blender', 'washer'].forEach(id => {
+      const el = document.getElementById(`slider-${id}`);
+      if (!el) return;
+      el.addEventListener('mouseenter', () => clearInterval(sliderState[id].timer));
+      el.addEventListener('mouseleave', () => startAutoPlay(id));
+      el.addEventListener('focusin',    () => clearInterval(sliderState[id].timer));
+      el.addEventListener('focusout',   () => startAutoPlay(id));
+      startAutoPlay(id);
+    });
+
+    /* keyboard support for sliders */
+    document.querySelectorAll('.product-slider').forEach(slider => {
+      slider.addEventListener('keydown', e => {
+        const id = slider.id.replace('slider-', '');
+        if (e.key === 'ArrowLeft')  slideProduct(id, -1);
+        if (e.key === 'ArrowRight') slideProduct(id, 1);
+      });
+    });
+
+
+    /* ── SCROLL REVEAL ── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

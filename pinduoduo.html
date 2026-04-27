@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Learn to import cheap products from China using Pinduoduo. Beginner-friendly importation class for Nigerians. Start with low capital today."/>
+  <title>Pinduoduo Class — SHOPIDY</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet"/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/components.css"/>
+  <link rel="stylesheet" href="css/layout.css"/>
+</head>
+<body class="page">
+
+  <!-- ── NAV ── -->
+  <header>
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav__inner">
+
+        <a href="home.html" class="logo" aria-label="SHOPIDY home">
+          <span class="logo__shop">SHOP</span><span class="logo__idy">IDY</span>
+        </a>
+
+        <ul class="nav__links" role="list">
+          <li><a href="home.html"     class="nav__link">Home</a></li>
+          <li><a href="pinduoduo.html" class="nav__link is-active">Pinduoduo</a></li>
+          <li><a href="1688.html"      class="nav__link">1688 Class</a></li>
+          <li><a href="products.html"  class="nav__link">Products</a></li>
+        </ul>
+
+        <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20join%20the%20Pinduoduo%20Class."
+           target="_blank"
+           rel="noopener noreferrer"
+           class="nav__cta">
+          💬 Chat Us
+        </a>
+
+        <button class="nav__burger"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="nav-drawer"
+                onclick="toggleNav(this)">
+          <span class="nav__burger-line"></span>
+          <span class="nav__burger-line"></span>
+          <span class="nav__burger-line"></span>
+        </button>
+
+      </div>
+    </nav>
+
+    <!-- mobile drawer -->
+    <div id="nav-drawer" class="nav__drawer" aria-hidden="true">
+      <ul class="nav__drawer-links" role="list">
+        <li><a href="home.html"     class="nav__drawer-link">Home</a></li>
+        <li><a href="pinduoduo.html" class="nav__drawer-link is-active">Pinduoduo Class</a></li>
+        <li><a href="1688.html"      class="nav__drawer-link">1688 Class</a></li>
+        <li><a href="products.html"  class="nav__drawer-link">Products</a></li>
+      </ul>
+      <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20join%20the%20Pinduoduo%20Class."
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn btn--wa btn--full">
+        💬 Order via WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <main class="page__main nav-offset">
+
+    <!-- ── PAGE HERO ── -->
+    <section class="page-hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="page-hero__inner">
+
+          <nav class="page-hero__breadcrumb" aria-label="Breadcrumb">
+            <a href="home.html">Home</a> › Pinduoduo Class
+          </nav>
+
+          <div class="page-hero__tags" role="list">
+            <span class="page-hero__tag">📱 Pinduoduo App</span>
+            <span class="page-hero__tag">✅ Beginner-Friendly</span>
+            <span class="page-hero__tag">💰 Low Capital</span>
+            <span class="page-hero__tag">🇳🇬 Built for Nigerians</span>
+          </div>
+
+          <h1 class="page-hero__title" id="hero-title">
+            Your first China order.<br/>
+            <em>Easier than you think.</em>
+          </h1>
+
+          <p class="page-hero__sub">
+            I thought the same thing. Then I placed my first order in 20 minutes.
+            This class shows you exactly how — step by step, no experience needed.
+          </p>
+
+          <div class="page-hero__actions">
+            <a href="#pricing"
+               class="btn btn--primary btn--lg">
+              Get Started — From ₦10,000
+            </a>
+            <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20have%20a%20question%20about%20the%20Pinduoduo%20Class."
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn--ghost btn--lg">
+              💬 Ask a Question
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── PAIN ── -->
+    <section class="section section--tinted" aria-labelledby="pain-title">
+      <div class="container--narrow">
+
+        <div class="section__header">
+          <span class="eyebrow">Sound Familiar?</span>
+          <h2 class="section__title" id="pain-title">
+            This is exactly where<br/>you are right now
+          </h2>
+        </div>
+
+        <div style="display:grid;gap:var(--space-3);">
+
+          <div class="pain-item reveal">
+            <div class="pain-item__emoji">😤</div>
+            <div>
+              <div class="pain-item__title">You're paying too much for products</div>
+              <p class="pain-item__body">
+                You see people reselling items for ₦8,000 that cost ₦800 in China.
+                You know the gap exists — you just don't know how to close it yet.
+              </p>
+            </div>
+          </div>
+
+          <div class="pain-item reveal reveal--delay-1">
+            <div class="pain-item__emoji">😰</div>
+            <div>
+              <div class="pain-item__title">Importing sounds risky and complicated</div>
+              <p class="pain-item__body">
+                You've heard horror stories. Money lost, fake products, packages
+                that never showed up. Nobody taught you the safe way to do this.
+              </p>
+            </div>
+          </div>
+
+          <div class="pain-item reveal reveal--delay-2">
+            <div class="pain-item__emoji">💸</div>
+            <div>
+              <div class="pain-item__title">You think you need big money to start</div>
+              <p class="pain-item__body">
+                You don't. Pinduoduo is built for exactly this — low minimum orders,
+                low prices, and you can start with whatever you have right now.
+              </p>
+            </div>
+          </div>
+
+          <div class="pain-item reveal reveal--delay-3">
+            <div class="pain-item__emoji">🤯</div>
+            <div>
+              <div class="pain-item__title">Chinese apps feel impossible to use</div>
+              <p class="pain-item__body">
+                Everything is in Mandarin and you don't know where to start.
+                We fix that in the first 10 minutes of class.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── SHIFT ── -->
+    <section class="section" aria-label="Solution statement">
+      <div class="container--narrow">
+        <div style="background:var(--color-navy);border-radius:var(--radius-xl);padding:var(--space-10) var(--space-8);text-align:center;" class="reveal">
+          <h2 style="font-family:var(--font-display);font-size:clamp(var(--text-xl),4vw,var(--text-2xl));font-weight:800;color:var(--color-white);margin-bottom:var(--space-4);">
+            This class fixes all of that.
+          </h2>
+          <p style="font-size:var(--text-base);color:var(--text-on-dark-soft);line-height:var(--leading-loose);max-width:480px;margin-inline:auto;">
+            By the end you'll know exactly how to find products, place orders,
+            pay safely, and get your goods shipped to Nigeria —
+            using one of the cheapest platforms in China.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── CURRICULUM ── -->
+    <section class="section section--tinted" aria-labelledby="curriculum-title">
+      <div class="container--narrow">
+
+        <div class="section__header">
+          <span class="eyebrow">What You'll Learn</span>
+          <h2 class="section__title" id="curriculum-title">
+            Everything. Step by step.<br/>No gaps.
+          </h2>
+          <p class="section__sub">
+            From downloading the app to receiving your first order in Nigeria.
+          </p>
+        </div>
+
+        <ol style="display:grid;gap:var(--space-3);list-style:none;" role="list">
+
+          <li class="pain-item reveal">
+            <div class="step__num" style="flex-shrink:0;">1</div>
+            <div>
+              <div class="pain-item__title">Understanding Pinduoduo</div>
+              <p class="pain-item__body">
+                What it is, why it's one of China's cheapest platforms,
+                and why most Nigerians are completely sleeping on it.
+              </p>
+            </div>
+          </li>
+
+          <li class="pain-item reveal reveal--delay-1">
+            <div class="step__num" style="flex-shrink:0;">2</div>
+            <div>
+              <div class="pain-item__title">App Setup & Navigation</div>
+              <p class="pain-item__body">
+                Full walkthrough — download, account setup, language settings,
+                and how to move around the app confidently.
+              </p>
+            </div>
+          </li>
+
+          <li class="pain-item reveal reveal--delay-2">
+            <div class="step__num" style="flex-shrink:0;">3</div>
+            <div>
+              <div class="pain-item__title">Finding Winning Products</div>
+              <p class="pain-item__body">
+                How to search, read listings, spot quality items,
+                and avoid bad sellers before you spend a kobo.
+              </p>
+            </div>
+          </li>
+
+          <li class="pain-item reveal reveal--delay-3">
+            <div class="step__num" style="flex-shrink:0;">4</div>
+            <div>
+              <div class="pain-item__title">Payment Methods for Nigerians</div>
+              <p class="pain-item__body">
+                The exact tools and apps that work for Nigerians to pay on Pinduoduo —
+                step by step, nothing left out.
+              </p>
+            </div>
+          </li>
+
+          <li class="pain-item reveal">
+            <div class="step__num" style="flex-shrink:0;">5</div>
+            <div>
+              <div class="pain-item__title">Shipping & Delivery to Nigeria</div>
+              <p class="pain-item__body">
+                How shipping works, realistic timelines,
+                and how to track your order from China to your door.
+              </p>
+            </div>
+          </li>
+
+          <li class="pain-item reveal reveal--delay-1">
+            <div class="step__num" style="flex-shrink:0;">6</div>
+            <div>
+              <div class="pain-item__title">Personal Use vs Reselling for Profit</div>
+              <p class="pain-item__body">
+                How to use Pinduoduo to save money for yourself
+                AND how to flip products for profit. Both covered.
+              </p>
+            </div>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- ── WHO IS IT FOR ── -->
+    <section class="section" aria-labelledby="who-title">
+      <div class="container--narrow">
+
+        <div class="section__header">
+          <span class="eyebrow">Is This For You?</span>
+          <h2 class="section__title" id="who-title">
+            Be honest with yourself
+          </h2>
+        </div>
+
+        <div class="who-grid reveal">
+          <div class="who-box who-box--yes">
+            <div class="who-box__title">✅ Yes, join if…</div>
+            <ul class="who-box__list">
+              <li class="who-box__item">You're new to importation</li>
+              <li class="who-box__item">You have low starting capital</li>
+              <li class="who-box__item">You want to buy for yourself cheaper</li>
+              <li class="who-box__item">You want to start a resale hustle</li>
+              <li class="who-box__item">You're a student or side hustler</li>
+              <li class="who-box__item">You've tried before and got confused</li>
+            </ul>
+          </div>
+          <div class="who-box who-box--no">
+            <div class="who-box__title">❌ Not for you if…</div>
+            <ul class="who-box__list">
+              <li class="who-box__item">You want to import in large bulk</li>
+              <li class="who-box__item">You need manufacturer-direct deals</li>
+              <li class="who-box__item">You want to negotiate MOQ pricing</li>
+              <li class="who-box__item">You already know Pinduoduo well</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="margin-top:var(--space-5);font-size:var(--text-sm);color:var(--text-muted);">
+          If the last 4 sound like you, the
+          <a href="1688.html" style="color:var(--color-blue);font-weight:600;">1688 Class</a>
+          is the better fit.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ── GUARANTEE ── -->
+    <section class="section section--tinted" aria-label="Our promise">
+      <div class="container--narrow">
+        <div class="guarantee reveal">
+          <div class="guarantee__icon" aria-hidden="true">🛡️</div>
+          <div>
+            <div class="guarantee__title">Our Promise to You</div>
+            <p class="guarantee__body">
+              This isn't a PDF you download and never open. It's a live, practical session
+              where you ask questions in real time. Show up, engage, and you will leave
+              knowing exactly what to do next. We've trained 500+ students — we know what works.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── PRICING ── -->
+    <section class="section" id="pricing" aria-labelledby="pricing-title">
+      <div class="container--narrow">
+
+        <div class="section__header">
+          <span class="eyebrow">Pricing</span>
+          <h2 class="section__title" id="pricing-title">
+            Pick what works<br/>for you
+          </h2>
+          <p class="section__sub">
+            Same curriculum either way. The difference is how personal you want it.
+          </p>
+        </div>
+
+        <div class="grid--pricing">
+
+          <div class="price-card is-featured reveal">
+            <div class="price-card__type">Most Popular</div>
+            <div class="price-card__name">Group Class</div>
+            <div class="price-card__amount">
+              <span class="price-card__currency">₦</span>10,000
+            </div>
+            <div class="price-card__divider"></div>
+            <ul class="price-card__includes">
+              <li>Full Pinduoduo curriculum</li>
+              <li>Live group session with Idy</li>
+              <li>Q&A during the session</li>
+              <li>WhatsApp support after class</li>
+              <li>Class materials included</li>
+            </ul>
+            <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20join%20the%20Pinduoduo%20Group%20Class%20for%20%2310%2C000."
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn--wa btn--full">
+              💬 Join Group Class
+            </a>
+          </div>
+
+          <div class="price-card reveal reveal--delay-1">
+            <div class="price-card__type">Private</div>
+            <div class="price-card__name">1-on-1 Class</div>
+            <div class="price-card__amount">
+              <span class="price-card__currency">₦</span>20,000
+            </div>
+            <div class="price-card__divider"></div>
+            <ul class="price-card__includes">
+              <li>Full Pinduoduo curriculum</li>
+              <li>Private session — just you & Idy</li>
+              <li>Go at your own pace</li>
+              <li>Personalized product advice</li>
+              <li>Extended WhatsApp support</li>
+              <li>Session recording (on request)</li>
+            </ul>
+            <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20the%20Pinduoduo%20Private%20Class%20for%20%2320%2C000."
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn--primary btn--full">
+              💬 Book Private Class
+            </a>
+          </div>
+
+        </div>
+
+        <!-- upsell nudge -->
+        <div class="upsell-strip reveal" style="margin-top:var(--space-6);">
+          <div class="upsell-strip__text">
+            <div class="upsell-strip__label">Also Available</div>
+            <div class="upsell-strip__title">Want Pinduoduo + 1688 together?</div>
+            <p class="upsell-strip__sub">
+              Get both classes and save. Chat us to ask about bundle pricing.
+            </p>
+          </div>
+          <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20both%20the%20Pinduoduo%20and%201688%20classes.%20Tell%20me%20about%20bundle%20pricing."
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn--gold">
+            Ask About Bundle →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ── TESTIMONIALS ── -->
+    <section class="section section--tinted" aria-labelledby="testi-title">
+      <div class="container--narrow">
+
+        <div class="section__header">
+          <span class="eyebrow">Real Students</span>
+          <h2 class="section__title" id="testi-title">
+            They thought it was<br/>complicated too
+          </h2>
+        </div>
+
+        <div class="grid--testi">
+          <!-- ✏️ REPLACE with real Pinduoduo class testimonials -->
+          <div class="testi testi--placeholder reveal">
+            <div class="testi__stars" aria-label="5 stars">★★★★★</div>
+            <p class="testi__quote">
+               "Taking this class seriously changed everything for me. I now run a small
+  importation business buying shoes for men and women in my area — and I've
+  already made over ₦70,000 in revenue. I'm so grateful."
+            </p>
+            <div class="testi__author">[Thersea]</div>
+            <div class="testi__role">Lagos · Pinduoduo Class</div>
+          </div>
+
+          <div class="testi testi--placeholder reveal reveal--delay-1">
+            <div class="testi__stars" aria-label="5 stars">★★★★★</div>
+            <p class="testi__quote">
+              "Learning the Pinduoduo method from Idy was genuinely eye-opening.
+  I now buy everything I need at a fraction of what I used to pay.
+  No more getting ripped off on basic gadgets."
+            </p>
+            <div class="testi__author">[Vera]</div>
+            <div class="testi__role">Lagos · Pinduoduo Class</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ── FAQ ── -->
+    <section class="section" aria-labelledby="faq-title">
+      <div class="container--narrow">
+
+        <div class="section__header">
+          <span class="eyebrow">FAQ</span>
+          <h2 class="section__title" id="faq-title">
+            Questions people ask<br/>before joining
+          </h2>
+        </div>
+
+        <div class="faq" role="list">
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__trigger"
+                    aria-expanded="false"
+                    onclick="toggleFaq(this)">
+              <span class="faq__question">Do I need experience to join?</span>
+              <span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer" hidden>
+              Zero experience needed. The Pinduoduo class is built for complete beginners.
+              As long as you have a smartphone and internet, you're ready.
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__trigger"
+                    aria-expanded="false"
+                    onclick="toggleFaq(this)">
+              <span class="faq__question">How much money do I need to start importing after the class?</span>
+              <span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer" hidden>
+              You can start with as little as ₦5,000–₦10,000 for personal use.
+              For reselling, ₦20,000–₦50,000 gives you a solid starting inventory
+              depending on the product you choose.
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__trigger"
+                    aria-expanded="false"
+                    onclick="toggleFaq(this)">
+              <span class="faq__question">What's the difference between group and private class?</span>
+              <span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer" hidden>
+              Group class is a scheduled session with other students — great if you want
+              the community energy. Private class is 1-on-1 with Idy — more personal,
+              more flexible, and you go at your own pace.
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__trigger"
+                    aria-expanded="false"
+                    onclick="toggleFaq(this)">
+              <span class="faq__question">How do I pay for the class?</span>
+              <span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer" hidden>
+              Click any WhatsApp button on this page. We'll send you payment details
+              and confirm your spot once payment is made. Simple.
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__trigger"
+                    aria-expanded="false"
+                    onclick="toggleFaq(this)">
+              <span class="faq__question">Is Pinduoduo safe? Can I get scammed?</span>
+              <span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer" hidden>
+              Pinduoduo is a massive, legitimate Chinese e-commerce platform.
+              We teach you exactly how to identify quality sellers, read reviews,
+              and place orders safely so your money is always protected.
+            </div>
+          </div>
+
+          <div class="faq__item" role="listitem">
+            <button class="faq__trigger"
+                    aria-expanded="false"
+                    onclick="toggleFaq(this)">
+              <span class="faq__question">What if I want to learn 1688 too?</span>
+              <span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer" hidden>
+              You can take the
+              <a href="1688.html">1688 class</a>
+              separately after this, or chat us about taking both together.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── FINAL CTA ── -->
+    <section class="section section--tinted" aria-labelledby="cta-title">
+      <div class="container--narrow">
+        <div class="cta-banner reveal">
+          <h2 class="cta-banner__title" id="cta-title">
+            Your first China order<br/>starts here.
+          </h2>
+          <p class="cta-banner__body">
+            Stop watching people make money from importing
+            and wondering how they do it. Now you know where to start.
+          </p>
+          <div class="cta-banner__actions">
+            <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20join%20the%20Pinduoduo%20Group%20Class%20for%20%2310%2C000."
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn--wa btn--lg">
+              💬 Join Group Class — ₦10,000
+            </a>
+            <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20the%20Pinduoduo%20Private%20Class%20for%20%2320%2C000."
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn--ghost btn--lg">
+              Book Private — ₦20,000
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ── STICKY BAR ── -->
+  <div class="sticky-bar" role="complementary" aria-label="Quick order">
+    <div class="sticky-bar__price">
+      <span class="sticky-bar__amount">From ₦10,000</span>
+      <span class="sticky-bar__label">Pinduoduo Class</span>
+    </div>
+    <div class="sticky-bar__actions">
+      <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20join%20the%20Pinduoduo%20Class."
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn btn--wa btn--sm">
+        💬 Order Now
+      </a>
+      <a href="1688.html" class="btn btn--primary btn--sm">
+        See 1688 Class →
+      </a>
+    </div>
+  </div>
+
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="home.html" class="logo logo--sm" aria-label="SHOPIDY home">
+            <span class="logo__shop">SHOP</span><span class="logo__idy">IDY</span>
+          </a>
+          <p class="footer__tagline">Import Smart. Sell Big. Live Free.</p>
+          <div class="footer__whatsapp">
+            📱 <strong>08168784078</strong>
+          </div>
+        </div>
+
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <div class="footer__nav-group">
+            <div class="footer__nav-title">Classes</div>
+            <ul class="footer__nav-links" role="list">
+              <li><a href="pinduoduo.html" class="footer__nav-link">Pinduoduo Class</a></li>
+              <li><a href="1688.html"      class="footer__nav-link">1688 Class</a></li>
+            </ul>
+          </div>
+          <div class="footer__nav-group">
+            <div class="footer__nav-title">Shop</div>
+            <ul class="footer__nav-links" role="list">
+              <li><a href="products.html" class="footer__nav-link">Products</a></li>
+              <li>
+                <a href="https://wa.me/2348168784078"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="footer__nav-link">
+                  WhatsApp
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2025 SHOPIDY. All rights reserved.</p>
+        <p class="footer__copy">Built for Nigerian hustlers.</p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ── SCRIPTS ── -->
+  <script>
+    /* Nav burger */
+    function toggleNav(burger) {
+      const drawer = document.getElementById('nav-drawer');
+      const isOpen = burger.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', isOpen);
+      drawer.classList.toggle('is-open', isOpen);
+      drawer.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    document.querySelectorAll('.nav__drawer-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const burger = document.querySelector('.nav__burger');
+        const drawer = document.getElementById('nav-drawer');
+        burger.classList.remove('is-open');
+        burger.setAttribute('aria-expanded', 'false');
+        drawer.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+
+    /* FAQ accordion */
+    function toggleFaq(trigger) {
+      const item   = trigger.closest('.faq__item');
+      const answer = trigger.nextElementSibling;
+      const icon   = trigger.querySelector('.faq__icon');
+      const isOpen = item.classList.contains('is-open');
+
+      /* close all */
+      document.querySelectorAll('.faq__item').forEach(i => {
+        i.classList.remove('is-open');
+        i.querySelector('.faq__answer').hidden = true;
+        i.querySelector('.faq__trigger').setAttribute('aria-expanded', 'false');
+        i.querySelector('.faq__icon').textContent = '+';
+      });
+
+      /* open clicked if it was closed */
+      if (!isOpen) {
+        item.classList.add('is-open');
+        answer.hidden = false;
+        trigger.setAttribute('aria-expanded', 'true');
+        icon.textContent = '+';
+      }
+    }
+
+    /* Scroll reveal */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
