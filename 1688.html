@@ -112,6 +112,12 @@
       font-weight: 700;
     }
 
+    .pricing-card__actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
     .pay-btn {
       display: flex;
       align-items: center;
@@ -155,6 +161,35 @@
       background: #b57416;
       box-shadow: 0 8px 28px rgba(201,131,26,0.4);
     }
+
+    .btn--secondary-link {
+      background: none;
+      border: none;
+      color: var(--color-sky);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: var(--space-2) 0;
+      font-family: var(--font-sans);
+      text-align: center;
+      width: 100%;
+    }
+
+    .bank-transfer-box {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      font-size: var(--text-sm);
+      color: var(--text-body);
+      line-height: var(--leading-loose);
+      display: none;
+      margin-top: var(--space-3);
+    }
+
+    .bank-transfer-box p { margin-bottom: var(--space-3); }
+    .bank-transfer-box p:last-child { margin-bottom: 0; }
 
     .pay-modal {
       position: fixed;
@@ -203,6 +238,83 @@
       color: var(--text-muted);
       line-height: var(--leading-loose);
       margin-bottom: var(--space-6);
+    }
+
+    /* ── checkout-info modal (email/phone capture) ── */
+    .checkout-modal__card {
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8) var(--space-6);
+      max-width: 380px;
+      width: 100%;
+      text-align: left;
+      transform: translateY(20px);
+      transition: transform var(--duration-base) var(--ease);
+    }
+
+    .pay-modal.is-open .checkout-modal__card { transform: translateY(0); }
+
+    .checkout-modal__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .checkout-modal__plan {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      margin-bottom: var(--space-5);
+    }
+
+    .checkout-modal__field { margin-bottom: var(--space-4); }
+
+    .checkout-modal__label {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: var(--space-2);
+    }
+
+    .checkout-modal__input {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+    }
+
+    .checkout-modal__input:focus {
+      outline: none;
+      border-color: var(--color-sky);
+    }
+
+    .checkout-modal__error {
+      color: #C0392B;
+      font-size: var(--text-xs);
+      margin-top: var(--space-2);
+      display: none;
+    }
+
+    .checkout-modal__actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin-top: var(--space-6);
+    }
+
+    .checkout-modal__cancel {
+      background: none;
+      border: none;
+      color: var(--text-ghost);
+      font-size: var(--text-sm);
+      cursor: pointer;
+      font-family: var(--font-sans);
+      padding: var(--space-2);
     }
 
     .upsell-strip {
@@ -540,8 +652,8 @@
             Pick your class.<br/>Pay securely. Start learning.
           </h2>
           <p class="section__sub">
-            Secure payment powered by Paystack.
-            Card, bank transfer, and USSD all supported.
+            Secure payment powered by Paystack — or pay by bank transfer
+            and confirm on WhatsApp.
           </p>
         </div>
 
@@ -562,10 +674,28 @@
                 <li>WhatsApp support after class</li>
                 <li>Class materials included</li>
               </ul>
-              <button class="pay-btn pay-btn--primary"
-                      onclick="payNow('1688 Group Class', 1500000)">
-                💳 Pay ₦15,000 Now
-              </button>
+              <div class="pricing-card__actions">
+                <button class="pay-btn pay-btn--primary"
+                        onclick="openCheckoutModal('1688 Group Class', 15000)">
+                  💳 Pay ₦15,000 Now
+                </button>
+                <button class="btn--secondary-link" onclick="toggleBankTransfer('group')">
+                  Prefer bank transfer instead? Tap here
+                </button>
+              </div>
+              <div id="bank-transfer-group" class="bank-transfer-box">
+                <p><strong>Bank Transfer Details</strong></p>
+                <p>
+                  Bank: [Moniepoint MFB]<br/>
+                  Account Number: [8152587997]<br/>
+                  Account Name: [Victor Perpetual OKon/ (SHOPIDY)]
+                </p>
+                <p>Made the transfer? Send your receipt below to confirm your spot in the Group Class:</p>
+                <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20just%20made%20a%20bank%20transfer%20for%20the%201688%20Group%20Class%20(%E2%82%A615%2C000).%20Here%20is%20my%20receipt."
+                   target="_blank" rel="noopener noreferrer" class="btn btn--wa btn--full">
+                  📤 Send Receipt on WhatsApp
+                </a>
+              </div>
             </div>
           </div>
 
@@ -585,10 +715,28 @@
                 <li>Extended WhatsApp support</li>
                 <li>Recording on request</li>
               </ul>
-              <button class="pay-btn pay-btn--gold"
-                      onclick="payNow('1688 Private Class', 3000000)">
-                💳 Pay ₦30,000 Now
-              </button>
+              <div class="pricing-card__actions">
+                <button class="pay-btn pay-btn--gold"
+                        onclick="openCheckoutModal('1688 Private Class', 30000)">
+                  💳 Pay ₦30,000 Now
+                </button>
+                <button class="btn--secondary-link" onclick="toggleBankTransfer('private')">
+                  Prefer bank transfer instead? Tap here
+                </button>
+              </div>
+              <div id="bank-transfer-private" class="bank-transfer-box">
+                <p><strong>Bank Transfer Details</strong></p>
+                <p>
+                  Bank: [Moniepoint MFB]<br/>
+                  Account Number: [8152587997]<br/>
+                  Account Name: [Victor Perpetual OKon/ (SHOPIDY)]
+                </p>
+                <p>Made the transfer? Send your receipt below to confirm your spot in the Private Class:</p>
+                <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20just%20made%20a%20bank%20transfer%20for%20the%201688%20Private%20Class%20(%E2%82%A630%2C000).%20Here%20is%20my%20receipt."
+                   target="_blank" rel="noopener noreferrer" class="btn btn--wa btn--full">
+                  📤 Send Receipt on WhatsApp
+                </a>
+              </div>
             </div>
           </div>
 
@@ -692,8 +840,9 @@
               <span class="faq__icon" aria-hidden="true">+</span>
             </button>
             <div class="faq__answer" hidden>
-              Yes. All payments are processed by Paystack — Nigeria's most trusted payment
-              gateway. Your card and bank details are never stored on this site.
+              Yes. Card and online payments are processed by Paystack — Nigeria's most
+              trusted payment gateway. Your card details are never stored on this site.
+              You can also pay directly by bank transfer if you prefer.
             </div>
           </div>
           <div class="faq__item" role="listitem">
@@ -702,8 +851,9 @@
               <span class="faq__icon" aria-hidden="true">+</span>
             </button>
             <div class="faq__answer" hidden>
-              Once payment is confirmed you'll see a success message and a WhatsApp button.
-              Tap it to message Idy — she'll send your class details and schedule immediately.
+              If you pay by card you'll see a success message and a WhatsApp button immediately.
+              If you pay by bank transfer, send your receipt on WhatsApp and Idy will confirm
+              and send your class details right away.
             </div>
           </div>
           <div class="faq__item" role="listitem">
@@ -759,6 +909,34 @@
          target="_blank" rel="noopener noreferrer" class="btn btn--wa btn--sm">
         💬 WhatsApp
       </a>
+    </div>
+  </div>
+
+
+  <!-- ── CHECKOUT INFO MODAL (email/phone capture before Paystack opens) ── -->
+  <div class="pay-modal" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+    <div class="checkout-modal__card">
+      <h3 class="checkout-modal__title" id="checkout-title">Complete Your Enrollment</h3>
+      <p class="checkout-modal__plan" id="checkout-plan">Plan — ₦0</p>
+
+      <div class="checkout-modal__field">
+        <label class="checkout-modal__label" for="checkout-email">Email address</label>
+        <input type="email" id="checkout-email" class="checkout-modal__input" placeholder="you@example.com" required/>
+      </div>
+
+      <div class="checkout-modal__field">
+        <label class="checkout-modal__label" for="checkout-phone">Phone / WhatsApp number</label>
+        <input type="tel" id="checkout-phone" class="checkout-modal__input" placeholder="080xxxxxxxx" required/>
+      </div>
+
+      <p class="checkout-modal__error" id="checkout-error">Please enter a valid email and phone number.</p>
+
+      <div class="checkout-modal__actions">
+        <button class="btn btn--wa btn--lg btn--full" id="checkout-continue">
+          Continue to Payment
+        </button>
+        <button class="checkout-modal__cancel" onclick="closeCheckoutModal()">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -823,31 +1001,84 @@
   <!-- ── SCRIPTS ── -->
   <script>
     const PAYSTACK_KEY = 'pk_live_8634abaf2650b157cb7471672829c787d983ca40';
-    const WA_NUMBER   = '2348168784078';
+    const WA_NUMBER    = '2348168784078';
 
-    /* ── PAYSTACK ── */
-    function payNow(plan, amountKobo) {
-      const email = prompt('Enter your email address to proceed:');
-      if (!email || !email.includes('@')) {
-        alert('Please enter a valid email address.');
+    let activePlan = null;
+    let activeAmount = 0;
+
+    /* ── BANK TRANSFER TOGGLE ── */
+    function toggleBankTransfer(cardId) {
+      const box = document.getElementById(`bank-transfer-${cardId}`);
+      if (!box) return;
+      const isHidden = box.style.display === 'none' || !box.style.display;
+      box.style.display = isHidden ? 'block' : 'none';
+      if (isHidden) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    /* ── CHECKOUT INFO MODAL ── */
+    function openCheckoutModal(plan, amountNaira) {
+      activePlan = plan;
+      activeAmount = amountNaira;
+
+      document.getElementById('checkout-plan').textContent =
+        `${plan} — ₦${amountNaira.toLocaleString()}`;
+      document.getElementById('checkout-email').value = '';
+      document.getElementById('checkout-phone').value = '';
+      document.getElementById('checkout-error').style.display = 'none';
+
+      const modal = document.getElementById('checkout-modal');
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkout-modal').classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('checkout-modal').addEventListener('click', function (e) {
+      if (e.target === this) closeCheckoutModal();
+    });
+
+    document.getElementById('checkout-continue').addEventListener('click', function () {
+      const email = document.getElementById('checkout-email').value.trim();
+      const phone = document.getElementById('checkout-phone').value.trim();
+      const errorEl = document.getElementById('checkout-error');
+
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const phoneValid = phone.replace(/\D/g, '').length >= 10;
+
+      if (!emailValid || !phoneValid) {
+        errorEl.style.display = 'block';
         return;
       }
+      errorEl.style.display = 'none';
 
+      closeCheckoutModal();
+      payNow(activePlan, activeAmount, email, phone);
+    });
+
+    /* ── PAYSTACK ── */
+    function payNow(plan, amountNaira, email, phone) {
       const handler = PaystackPop.setup({
         key:      PAYSTACK_KEY,
         email:    email,
-        amount:   amountKobo,
+        amount:   amountNaira * 100, // Paystack expects kobo
         currency: 'NGN',
         ref:      'SHOPIDY_1688_' + Date.now(),
         metadata: {
           custom_fields: [
-            { display_name: 'Plan', variable_name: 'plan', value: plan }
+            { display_name: 'Plan',  variable_name: 'plan',  value: plan },
+            { display_name: 'Phone', variable_name: 'phone', value: phone }
           ]
         },
-        callback: function(response) {
+        callback: function (response) {
+          // NOTE: confirms the popup completed on the client only.
+          // Always verify the reference on the Paystack dashboard before
+          // sending class access — see server-side verification note.
           showModal(plan, response.reference);
         },
-        onClose: function() {}
+        onClose: function () {}
       });
 
       handler.openIframe();
@@ -902,24 +1133,37 @@
     });
 
     /* ── FAQ ── */
-    function toggleFaq(trigger) {
-      const item   = trigger.closest('.faq__item');
-      const answer = trigger.nextElementSibling;
-      const icon   = trigger.querySelector('.faq__icon');
-      const isOpen = item.classList.contains('is-open');
-      document.querySelectorAll('.faq__item').forEach(i => {
-        i.classList.remove('is-open');
-        i.querySelector('.faq__answer').hidden = true;
-        i.querySelector('.faq__trigger').setAttribute('aria-expanded', 'false');
-        i.querySelector('.faq__icon').textContent = '+';
-      });
-      if (!isOpen) {
-        item.classList.add('is-open');
-        answer.hidden = false;
-        trigger.setAttribute('aria-expanded', 'true');
-        icon.textContent = '+';
-      }
-    }
+    
+    /* ── FAQ ───────────────────────────────────────── */
+
+function toggleFaq(trigger) {
+  const item = trigger.closest('.faq__item');
+  const answer = item.querySelector('.faq__answer');
+  const icon = trigger.querySelector('.faq__icon');
+
+  const isOpen = item.classList.contains('is-open');
+
+  // Close every FAQ
+  document.querySelectorAll('.faq__item').forEach(faq => {
+    faq.classList.remove('is-open');
+
+    const faqAnswer = faq.querySelector('.faq__answer');
+    const faqTrigger = faq.querySelector('.faq__trigger');
+    const faqIcon = faq.querySelector('.faq__icon');
+
+    faqAnswer.classList.remove('is-open');
+    faqTrigger.setAttribute('aria-expanded', 'false');
+    faqIcon.textContent = '+';
+  });
+
+  // Open clicked FAQ
+  if (!isOpen) {
+    item.classList.add('is-open');
+    answer.classList.add('is-open');
+    trigger.setAttribute('aria-expanded', 'true');
+    icon.textContent = '−';
+  }
+}
 
     /* ── SCROLL REVEAL ── */
     const observer = new IntersectionObserver(entries => {

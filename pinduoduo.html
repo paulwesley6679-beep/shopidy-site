@@ -668,9 +668,9 @@
               <div id="bank-transfer-group" class="bank-transfer-box">
                 <p><strong>Bank Transfer Details</strong></p>
                 <p>
-                  Bank: [Your Bank Name]<br/>
-                  Account Number: [0000000000]<br/>
-                  Account Name: [SHOPIDY / Owner Name]
+                  Bank: [Moniepoint MFB]<br/>
+                  Account Number: [8152587997]<br/>
+                  Account Name: [Victor Perpetual OKon/ (SHOPIDY)]
                 </p>
                 <p>Made the transfer? Send your receipt below to confirm your spot in the Group Class:</p>
                 <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20just%20made%20a%20bank%20transfer%20for%20the%20Pinduoduo%20Group%20Class%20(%E2%82%A610%2C000).%20Here%20is%20my%20receipt."
@@ -709,9 +709,9 @@
               <div id="bank-transfer-private" class="bank-transfer-box">
                 <p><strong>Bank Transfer Details</strong></p>
                 <p>
-                  Bank: [Your Bank Name]<br/>
-                  Account Number: [0000000000]<br/>
-                  Account Name: [SHOPIDY / Owner Name]
+                  Bank: [Moniepoint MFB]<br/>
+                  Account Number: [8152587997]<br/>
+                  Account Name: [Victor Perpetual OKon/ (SHOPIDY)]
                 </p>
                 <p>Made the transfer? Send your receipt below to confirm your spot in the Private Class:</p>
                 <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20just%20made%20a%20bank%20transfer%20for%20the%20Pinduoduo%20Private%20Class%20(%E2%82%A620%2C000).%20Here%20is%20my%20receipt."
@@ -1118,24 +1118,36 @@
     });
 
     /* ── FAQ ── */
-    function toggleFaq(trigger) {
-      const item   = trigger.closest('.faq__item');
-      const answer = trigger.nextElementSibling;
-      const icon   = trigger.querySelector('.faq__icon');
-      const isOpen = item.classList.contains('is-open');
-      document.querySelectorAll('.faq__item').forEach(i => {
-        i.classList.remove('is-open');
-        i.querySelector('.faq__answer').hidden = true;
-        i.querySelector('.faq__trigger').setAttribute('aria-expanded', 'false');
-        i.querySelector('.faq__icon').textContent = '+';
-      });
-      if (!isOpen) {
-        item.classList.add('is-open');
-        answer.hidden = false;
-        trigger.setAttribute('aria-expanded', 'true');
-        icon.textContent = '+';
-      }
-    }
+/* ── FAQ ───────────────────────────────────────── */
+
+function toggleFaq(trigger) {
+  const item = trigger.closest('.faq__item');
+  const answer = item.querySelector('.faq__answer');
+  const icon = trigger.querySelector('.faq__icon');
+
+  const isOpen = item.classList.contains('is-open');
+
+  // Close every FAQ
+  document.querySelectorAll('.faq__item').forEach(faq => {
+    faq.classList.remove('is-open');
+
+    const faqAnswer = faq.querySelector('.faq__answer');
+    const faqTrigger = faq.querySelector('.faq__trigger');
+    const faqIcon = faq.querySelector('.faq__icon');
+
+    faqAnswer.classList.remove('is-open');
+    faqTrigger.setAttribute('aria-expanded', 'false');
+    faqIcon.textContent = '+';
+  });
+
+  // Open clicked FAQ
+  if (!isOpen) {
+    item.classList.add('is-open');
+    answer.classList.add('is-open');
+    trigger.setAttribute('aria-expanded', 'true');
+    icon.textContent = '−';
+  }
+}
 
     /* ── SCROLL REVEAL ── */
     const observer = new IntersectionObserver(entries => {
