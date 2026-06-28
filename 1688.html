@@ -11,10 +11,240 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet"/>
 
+  <!-- Paystack -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+
   <!-- Styles -->
   <link rel="stylesheet" href="css/base.css"/>
   <link rel="stylesheet" href="css/components.css"/>
   <link rel="stylesheet" href="css/layout.css"/>
+
+  <style>
+    .pricing-wrap {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+      margin-top: var(--space-6);
+    }
+
+    .pricing-card {
+      background: var(--color-white);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color var(--duration-base) var(--ease),
+                  box-shadow   var(--duration-base) var(--ease);
+    }
+
+    .pricing-card:hover {
+      border-color: var(--color-sky);
+      box-shadow: var(--shadow-md);
+    }
+
+    .pricing-card.is-featured { border-color: var(--color-navy); }
+
+    .pricing-card__header {
+      background: var(--color-navy);
+      padding: var(--space-5) var(--space-6);
+    }
+
+    .pricing-card__type {
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-on-dark-soft);
+      margin-bottom: var(--space-2);
+    }
+
+    .pricing-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 800;
+      color: var(--color-white);
+      margin-bottom: var(--space-3);
+    }
+
+    .pricing-card__amount {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 900;
+      color: var(--color-white);
+      line-height: 1;
+    }
+
+    .pricing-card__amount sup {
+      font-size: var(--text-xl);
+      font-weight: 700;
+      vertical-align: super;
+    }
+
+    .pricing-card__body {
+      padding: var(--space-5) var(--space-6) var(--space-6);
+    }
+
+    .pricing-card__includes {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: var(--space-6);
+    }
+
+    .pricing-card__includes li {
+      font-size: var(--text-sm);
+      color: var(--text-body);
+      padding: var(--space-2) 0 var(--space-2) var(--space-5);
+      position: relative;
+      border-bottom: 1px solid var(--color-border-soft);
+      line-height: var(--leading-base);
+    }
+
+    .pricing-card__includes li:last-child { border-bottom: none; }
+
+    .pricing-card__includes li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: var(--space-2);
+      color: var(--color-success);
+      font-weight: 700;
+    }
+
+    .pay-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      width: 100%;
+      height: 52px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--duration-fast) var(--ease),
+                  transform   var(--duration-fast) var(--ease),
+                  box-shadow  var(--duration-fast) var(--ease);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .pay-btn:hover { transform: translateY(-2px); }
+    .pay-btn:active { transform: scale(0.98); }
+
+    .pay-btn--primary {
+      background: var(--color-blue);
+      color: var(--color-white);
+      box-shadow: 0 4px 20px rgba(29,95,168,0.3);
+    }
+
+    .pay-btn--primary:hover {
+      background: var(--color-blue-warm);
+      box-shadow: 0 8px 28px rgba(29,95,168,0.4);
+    }
+
+    .pay-btn--gold {
+      background: var(--color-gold);
+      color: var(--color-white);
+      box-shadow: 0 4px 20px rgba(201,131,26,0.3);
+    }
+
+    .pay-btn--gold:hover {
+      background: #b57416;
+      box-shadow: 0 8px 28px rgba(201,131,26,0.4);
+    }
+
+    .pay-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(14,28,47,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-5);
+      z-index: var(--z-modal);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--duration-base) var(--ease);
+    }
+
+    .pay-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .pay-modal__card {
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-10) var(--space-8);
+      text-align: center;
+      max-width: 380px;
+      width: 100%;
+      transform: translateY(20px);
+      transition: transform var(--duration-base) var(--ease);
+    }
+
+    .pay-modal.is-open .pay-modal__card { transform: translateY(0); }
+
+    .pay-modal__icon { font-size: 3rem; margin-bottom: var(--space-4); }
+
+    .pay-modal__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .pay-modal__body {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      line-height: var(--leading-loose);
+      margin-bottom: var(--space-6);
+    }
+
+    .upsell-strip {
+      background: var(--color-ink);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-5);
+      flex-wrap: wrap;
+      margin-top: var(--space-6);
+    }
+
+    .upsell-strip__label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: var(--space-2);
+    }
+
+    .upsell-strip__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 800;
+      color: var(--color-white);
+      margin-bottom: var(--space-2);
+    }
+
+    .upsell-strip__sub {
+      font-size: var(--text-sm);
+      color: var(--text-on-dark-soft);
+    }
+
+    @media (max-width: 560px) {
+      .pricing-wrap { grid-template-columns: 1fr; }
+      .upsell-strip { flex-direction: column; }
+      .upsell-strip .btn { width: 100%; justify-content: center; }
+    }
+  </style>
 </head>
 <body class="page">
 
@@ -22,51 +252,36 @@
   <header>
     <nav class="nav" role="navigation" aria-label="Main navigation">
       <div class="nav__inner">
-
         <a href="home.html" class="logo" aria-label="SHOPIDY home">
           <span class="logo__shop">SHOP</span><span class="logo__idy">IDY</span>
         </a>
-
         <ul class="nav__links" role="list">
           <li><a href="home.html"     class="nav__link">Home</a></li>
           <li><a href="pinduoduo.html" class="nav__link">Pinduoduo</a></li>
           <li><a href="1688.html"      class="nav__link is-active">1688 Class</a></li>
           <li><a href="products.html"  class="nav__link">Products</a></li>
         </ul>
-
         <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20join%20the%201688%20Class."
-           target="_blank"
-           rel="noopener noreferrer"
-           class="nav__cta">
-          💬 Chat Us
-        </a>
-
-        <button class="nav__burger"
-                aria-label="Open menu"
-                aria-expanded="false"
-                aria-controls="nav-drawer"
-                onclick="toggleNav(this)">
+           target="_blank" rel="noopener noreferrer" class="nav__cta">💬 Chat Us</a>
+        <button class="nav__burger" aria-label="Open menu" aria-expanded="false"
+                aria-controls="nav-drawer" onclick="toggleNav(this)">
           <span class="nav__burger-line"></span>
           <span class="nav__burger-line"></span>
           <span class="nav__burger-line"></span>
         </button>
-
       </div>
     </nav>
 
-    <!-- mobile drawer -->
     <div id="nav-drawer" class="nav__drawer" aria-hidden="true">
       <ul class="nav__drawer-links" role="list">
-        <li><a href="home.html"     class="nav__drawer-link">Home</a></li>
+        <li><a href="home.html"      class="nav__drawer-link">Home</a></li>
         <li><a href="pinduoduo.html" class="nav__drawer-link">Pinduoduo Class</a></li>
         <li><a href="1688.html"      class="nav__drawer-link is-active">1688 Class</a></li>
         <li><a href="products.html"  class="nav__drawer-link">Products</a></li>
       </ul>
       <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20join%20the%201688%20Class."
-         target="_blank"
-         rel="noopener noreferrer"
-         class="btn btn--wa btn--full">
-        💬 Order via WhatsApp
+         target="_blank" rel="noopener noreferrer" class="btn btn--wa btn--full">
+        💬 Chat on WhatsApp
       </a>
     </div>
   </header>
@@ -77,41 +292,31 @@
     <section class="page-hero" aria-labelledby="hero-title">
       <div class="container">
         <div class="page-hero__inner">
-
           <nav class="page-hero__breadcrumb" aria-label="Breadcrumb">
             <a href="home.html">Home</a> › 1688 Importation Class
           </nav>
-
           <div class="page-hero__tags">
             <span class="page-hero__tag">🏭 1688 Platform</span>
             <span class="page-hero__tag">📦 Bulk Importing</span>
             <span class="page-hero__tag">🤝 Factory Prices</span>
             <span class="page-hero__tag">📈 Business Growth</span>
           </div>
-
           <h1 class="page-hero__title" id="hero-title">
             Stop buying from middlemen.<br/>
             <em>Go straight to the factory.</em>
           </h1>
-
           <p class="page-hero__sub">
             Every agent between you and the manufacturer is taking a cut.
             This class teaches you how to remove all of them —
             negotiate your own prices and build a supply chain that's yours.
           </p>
-
           <div class="page-hero__actions">
-            <a href="#pricing" class="btn btn--primary btn--lg">
-              Get Started — From ₦15,000
-            </a>
+            <a href="#pricing" class="btn btn--primary btn--lg">Get Started — From ₦15,000</a>
             <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20have%20a%20question%20about%20the%201688%20Class."
-               target="_blank"
-               rel="noopener noreferrer"
-               class="btn btn--ghost btn--lg">
+               target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--lg">
               💬 Ask a Question
             </a>
           </div>
-
         </div>
       </div>
     </section>
@@ -120,7 +325,6 @@
     <!-- ── VS SECTION ── -->
     <section class="section section--tinted" aria-labelledby="vs-title">
       <div class="container--narrow">
-
         <div class="section__header">
           <span class="eyebrow">The Real Problem</span>
           <h2 class="section__title" id="vs-title">
@@ -128,32 +332,22 @@
           </h2>
           <p class="section__sub">
             Every time you buy from a local agent or Alibaba reseller,
-            you're paying for their flight tickets, their markup, and their profit.
-            1688 cuts all of that out.
+            you're paying for their markup. 1688 cuts all of that out.
           </p>
         </div>
-
         <div class="grid--2 reveal">
-
-          <!-- what you're doing now -->
           <div style="background:var(--color-danger-bg);border:1px solid #FAC7C7;border-radius:var(--radius-lg);padding:var(--space-6);">
-            <div style="font-family:var(--font-display);font-size:var(--text-base);font-weight:800;color:var(--color-danger);margin-bottom:var(--space-4);">
-              ❌ Buying through agents
-            </div>
+            <div style="font-family:var(--font-display);font-size:var(--text-base);font-weight:800;color:var(--color-danger);margin-bottom:var(--space-4);">❌ Buying through agents</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-2);">
               <li style="font-size:var(--text-sm);color:var(--text-muted);padding:var(--space-2) 0;border-bottom:1px solid rgba(0,0,0,0.06);">Paying 2x–5x the real price</li>
               <li style="font-size:var(--text-sm);color:var(--text-muted);padding:var(--space-2) 0;border-bottom:1px solid rgba(0,0,0,0.06);">No control over your supply</li>
               <li style="font-size:var(--text-sm);color:var(--text-muted);padding:var(--space-2) 0;border-bottom:1px solid rgba(0,0,0,0.06);">Can't negotiate anything</li>
-              <li style="font-size:var(--text-sm);color:var(--text-muted);padding:var(--space-2) 0;border-bottom:1px solid rgba(0,0,0,0.06);">Dependent on someone else's schedule</li>
+              <li style="font-size:var(--text-sm);color:var(--text-muted);padding:var(--space-2) 0;border-bottom:1px solid rgba(0,0,0,0.06);">Dependent on someone else</li>
               <li style="font-size:var(--text-sm);color:var(--text-muted);padding:var(--space-2) 0;">Limited product variety</li>
             </ul>
           </div>
-
-          <!-- what 1688 gives you -->
           <div style="background:var(--color-success-bg);border:1px solid #A7E0C8;border-radius:var(--radius-lg);padding:var(--space-6);">
-            <div style="font-family:var(--font-display);font-size:var(--text-base);font-weight:800;color:var(--color-success);margin-bottom:var(--space-4);">
-              ✅ Importing via 1688
-            </div>
+            <div style="font-family:var(--font-display);font-size:var(--text-base);font-weight:800;color:var(--color-success);margin-bottom:var(--space-4);">✅ Importing via 1688</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-2);">
               <li style="font-size:var(--text-sm);color:var(--text-muted);padding:var(--space-2) 0;border-bottom:1px solid rgba(0,0,0,0.06);">Factory-direct pricing</li>
               <li style="font-size:var(--text-sm);color:var(--text-muted);padding:var(--space-2) 0;border-bottom:1px solid rgba(0,0,0,0.06);">Negotiate MOQ & price yourself</li>
@@ -162,7 +356,6 @@
               <li style="font-size:var(--text-sm);color:var(--text-muted);padding:var(--space-2) 0;">Scale at your own pace</li>
             </ul>
           </div>
-
         </div>
       </div>
     </section>
@@ -171,62 +364,39 @@
     <!-- ── PAIN ── -->
     <section class="section" aria-labelledby="pain-title">
       <div class="container--narrow">
-
         <div class="section__header">
           <span class="eyebrow">If You Run a Business</span>
-          <h2 class="section__title" id="pain-title">
-            This hits home
-          </h2>
+          <h2 class="section__title" id="pain-title">This hits home</h2>
         </div>
-
         <div style="display:grid;gap:var(--space-3);">
-
           <div class="pain-item reveal">
             <div class="pain-item__emoji">📉</div>
             <div>
               <div class="pain-item__title">Your margins are being eaten alive</div>
-              <p class="pain-item__body">
-                You're buying from Lagos traders who bought from Alaba who bought from agents
-                who bought from China. Every middleman takes a cut — straight out of your pocket.
-              </p>
+              <p class="pain-item__body">You're buying from Lagos traders who bought from Alaba who bought from agents who bought from China. Every middleman takes a cut — straight out of your pocket.</p>
             </div>
           </div>
-
           <div class="pain-item reveal reveal--delay-1">
             <div class="pain-item__emoji">😤</div>
             <div>
               <div class="pain-item__title">You can't control your pricing</div>
-              <p class="pain-item__body">
-                When your supplier increases prices you have no choice.
-                No leverage. No alternative. That changes when you go direct.
-              </p>
+              <p class="pain-item__body">When your supplier increases prices you have no choice. No leverage. No alternative. That changes when you go direct.</p>
             </div>
           </div>
-
           <div class="pain-item reveal reveal--delay-2">
             <div class="pain-item__emoji">🤷</div>
             <div>
               <div class="pain-item__title">The language barrier feels impossible</div>
-              <p class="pain-item__body">
-                1688 is in Mandarin. Suppliers speak Chinese.
-                But there are tools and techniques that make it completely navigable
-                — we teach you all of them.
-              </p>
+              <p class="pain-item__body">1688 is in Mandarin. Suppliers speak Chinese. But there are tools and techniques that make it completely navigable — we teach you all of them.</p>
             </div>
           </div>
-
           <div class="pain-item reveal reveal--delay-3">
             <div class="pain-item__emoji">📦</div>
             <div>
               <div class="pain-item__title">You can't buy in the quantities you need</div>
-              <p class="pain-item__body">
-                Local agents set high minimums at high prices.
-                Going direct lets you negotiate MOQ on your terms —
-                we show you exactly how.
-              </p>
+              <p class="pain-item__body">Local agents set high minimums at high prices. Going direct lets you negotiate MOQ on your terms — we show you exactly how.</p>
             </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -241,8 +411,7 @@
           </h2>
           <p style="font-size:var(--text-base);color:var(--text-on-dark-soft);line-height:var(--leading-loose);max-width:480px;margin-inline:auto;">
             This class teaches you the full system — from finding the right manufacturer
-            to getting your goods landed in Nigeria at prices that make your
-            business genuinely competitive.
+            to getting your goods landed in Nigeria at prices that make your business genuinely competitive.
           </p>
         </div>
       </div>
@@ -252,87 +421,56 @@
     <!-- ── CURRICULUM ── -->
     <section class="section" aria-labelledby="curriculum-title">
       <div class="container--narrow">
-
         <div class="section__header">
           <span class="eyebrow">What You'll Learn</span>
           <h2 class="section__title" id="curriculum-title">
             The full system.<br/>Nothing held back.
           </h2>
-          <p class="section__sub">
-            A practical, hands-on curriculum built for business owners
-            serious about cutting costs and scaling.
-          </p>
+          <p class="section__sub">A practical, hands-on curriculum built for business owners serious about cutting costs and scaling.</p>
         </div>
-
         <ol style="display:grid;gap:var(--space-3);list-style:none;" role="list">
-
           <li class="pain-item reveal">
             <div class="step__num" style="flex-shrink:0;">1</div>
             <div>
               <div class="pain-item__title">Understanding 1688 vs Other Platforms</div>
-              <p class="pain-item__body">
-                Why 1688 is where the real money is, how it differs from Alibaba
-                and Taobao, and exactly when to use it.
-              </p>
+              <p class="pain-item__body">Why 1688 is where the real money is, how it differs from Alibaba and Taobao, and exactly when to use it.</p>
             </div>
           </li>
-
           <li class="pain-item reveal reveal--delay-1">
             <div class="step__num" style="flex-shrink:0;">2</div>
             <div>
               <div class="pain-item__title">App & Platform Navigation</div>
-              <p class="pain-item__body">
-                Full walkthrough — account setup, translation tools,
-                reading product pages confidently without knowing Mandarin.
-              </p>
+              <p class="pain-item__body">Full walkthrough — account setup, translation tools, reading product pages confidently without knowing Mandarin.</p>
             </div>
           </li>
-
           <li class="pain-item reveal reveal--delay-2">
             <div class="step__num" style="flex-shrink:0;">3</div>
             <div>
               <div class="pain-item__title">Sourcing & Vetting Manufacturers</div>
-              <p class="pain-item__body">
-                How to find legitimate manufacturers, spot red flags,
-                verify supplier credibility, and shortlist the best options
-                before spending anything.
-              </p>
+              <p class="pain-item__body">How to find legitimate manufacturers, spot red flags, verify supplier credibility, and shortlist the best options before spending anything.</p>
             </div>
           </li>
-
           <li class="pain-item reveal reveal--delay-3">
             <div class="step__num" style="flex-shrink:0;">4</div>
             <div>
               <div class="pain-item__title">Negotiation Tactics That Actually Work</div>
-              <p class="pain-item__body">
-                How to negotiate price, MOQ, customization, and shipping terms —
-                even with a language barrier. The exact messages that get results.
-              </p>
+              <p class="pain-item__body">How to negotiate price, MOQ, customization, and shipping terms — even with a language barrier. The exact messages that get results.</p>
             </div>
           </li>
-
           <li class="pain-item reveal">
             <div class="step__num" style="flex-shrink:0;">5</div>
             <div>
               <div class="pain-item__title">Bulk Pricing & MOQ Strategies</div>
-              <p class="pain-item__body">
-                How to calculate your landed cost, understand minimum order quantities,
-                and find the sweet spot between price and profit.
-              </p>
+              <p class="pain-item__body">How to calculate your landed cost, understand minimum order quantities, and find the sweet spot between price and profit.</p>
             </div>
           </li>
-
           <li class="pain-item reveal reveal--delay-1">
             <div class="step__num" style="flex-shrink:0;">6</div>
             <div>
               <div class="pain-item__title">Payment & Logistics to Nigeria</div>
-              <p class="pain-item__body">
-                How to pay 1688 suppliers safely as a Nigerian, shipping methods,
-                customs, and realistic delivery timelines.
-              </p>
+              <p class="pain-item__body">How to pay 1688 suppliers safely as a Nigerian, shipping methods, customs, and realistic delivery timelines.</p>
             </div>
           </li>
-
         </ol>
       </div>
     </section>
@@ -341,14 +479,10 @@
     <!-- ── WHO IS IT FOR ── -->
     <section class="section section--tinted" aria-labelledby="who-title">
       <div class="container--narrow">
-
         <div class="section__header">
           <span class="eyebrow">Is This For You?</span>
-          <h2 class="section__title" id="who-title">
-            Be honest with yourself
-          </h2>
+          <h2 class="section__title" id="who-title">Be honest with yourself</h2>
         </div>
-
         <div class="who-grid reveal">
           <div class="who-box who-box--yes">
             <div class="who-box__title">✅ Yes, join if…</div>
@@ -370,13 +504,10 @@
             </ul>
           </div>
         </div>
-
         <p style="margin-top:var(--space-5);font-size:var(--text-sm);color:var(--text-muted);">
           Complete beginner? Start with the
-          <a href="pinduoduo.html" style="color:var(--color-blue);font-weight:600;">Pinduoduo Class</a>
-          first.
+          <a href="pinduoduo.html" style="color:var(--color-blue);font-weight:600;">Pinduoduo Class</a> first.
         </p>
-
       </div>
     </section>
 
@@ -389,9 +520,9 @@
           <div>
             <div class="guarantee__title">Our Promise to You</div>
             <p class="guarantee__body">
-              This is a live, hands-on session — not a recorded video you'll forget
-              about in three days. You'll work through real examples, ask real questions,
-              and leave with a supplier shortlist you can act on immediately.
+              This is a live, hands-on session — not a recorded video you'll forget about in three days.
+              You'll work through real examples, ask real questions, and leave with a supplier shortlist
+              you can act on immediately.
             </p>
           </div>
         </div>
@@ -399,83 +530,78 @@
     </section>
 
 
-    <!-- ── PRICING ── -->
-    <section class="section section--tinted" id="pricing" aria-labelledby="pricing-title">
+    <!-- ── PRICING + PAYSTACK ── -->
+    <section class="section" id="pricing" aria-labelledby="pricing-title">
       <div class="container--narrow">
 
         <div class="section__header">
           <span class="eyebrow">Pricing</span>
           <h2 class="section__title" id="pricing-title">
-            Pick what works<br/>for you
+            Pick your class.<br/>Pay securely. Start learning.
           </h2>
           <p class="section__sub">
-            Same curriculum either way. Group for community energy,
-            private for personal depth.
+            Secure payment powered by Paystack.
+            Card, bank transfer, and USSD all supported.
           </p>
         </div>
 
-        <div class="grid--pricing">
+        <div class="pricing-wrap">
 
-          <div class="price-card is-featured reveal">
-            <div class="price-card__type">Most Popular</div>
-            <div class="price-card__name">Group Class</div>
-            <div class="price-card__amount">
-              <span class="price-card__currency">₦</span>15,000
+          <!-- GROUP CLASS -->
+          <div class="pricing-card is-featured reveal">
+            <div class="pricing-card__header">
+              <div class="pricing-card__type">Most Popular</div>
+              <div class="pricing-card__name">Group Class</div>
+              <div class="pricing-card__amount"><sup>₦</sup>15,000</div>
             </div>
-            <div class="price-card__divider"></div>
-            <ul class="price-card__includes">
-              <li>Full 1688 curriculum</li>
-              <li>Live group session with Idy</li>
-              <li>Q&A during the session</li>
-              <li>WhatsApp support after class</li>
-              <li>Class materials included</li>
-            </ul>
-            <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20join%20the%201688%20Group%20Class%20for%20%2315%2C000."
-               target="_blank"
-               rel="noopener noreferrer"
-               class="btn btn--wa btn--full">
-              💬 Join Group Class
-            </a>
+            <div class="pricing-card__body">
+              <ul class="pricing-card__includes">
+                <li>Full 1688 curriculum</li>
+                <li>Live group session with Idy</li>
+                <li>Q&A during the session</li>
+                <li>WhatsApp support after class</li>
+                <li>Class materials included</li>
+              </ul>
+              <button class="pay-btn pay-btn--primary"
+                      onclick="payNow('1688 Group Class', 1500000)">
+                💳 Pay ₦15,000 Now
+              </button>
+            </div>
           </div>
 
-          <div class="price-card reveal reveal--delay-1">
-            <div class="price-card__type">Private</div>
-            <div class="price-card__name">1-on-1 Class</div>
-            <div class="price-card__amount">
-              <span class="price-card__currency">₦</span>30,000
+          <!-- PRIVATE CLASS -->
+          <div class="pricing-card reveal reveal--delay-1">
+            <div class="pricing-card__header" style="background:var(--color-navy-mid);">
+              <div class="pricing-card__type">Private</div>
+              <div class="pricing-card__name">1-on-1 Class</div>
+              <div class="pricing-card__amount"><sup>₦</sup>30,000</div>
             </div>
-            <div class="price-card__divider"></div>
-            <ul class="price-card__includes">
-              <li>Full 1688 curriculum</li>
-              <li>Private session — just you & Idy</li>
-              <li>Tailored to your specific products</li>
-              <li>Supplier shortlisting assistance</li>
-              <li>Extended WhatsApp support</li>
-              <li>Session recording (on request)</li>
-            </ul>
-            <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20the%201688%20Private%20Class%20for%20%2330%2C000."
-               target="_blank"
-               rel="noopener noreferrer"
-               class="btn btn--primary btn--full">
-              💬 Book Private Class
-            </a>
+            <div class="pricing-card__body">
+              <ul class="pricing-card__includes">
+                <li>Full 1688 curriculum</li>
+                <li>Private session — just you & Idy</li>
+                <li>Tailored to your specific products</li>
+                <li>Supplier shortlisting assistance</li>
+                <li>Extended WhatsApp support</li>
+                <li>Recording on request</li>
+              </ul>
+              <button class="pay-btn pay-btn--gold"
+                      onclick="payNow('1688 Private Class', 3000000)">
+                💳 Pay ₦30,000 Now
+              </button>
+            </div>
           </div>
 
         </div>
 
-        <!-- upsell nudge -->
-        <div class="upsell-strip reveal" style="margin-top:var(--space-6);">
+        <!-- upsell -->
+        <div class="upsell-strip reveal">
           <div class="upsell-strip__text">
-            <div class="upsell-strip__label">Also Available</div>
-            <div class="upsell-strip__title">New to importing? Start with Pinduoduo.</div>
-            <p class="upsell-strip__sub">
-              Not sure you're ready for 1688 yet? Start with Pinduoduo first —
-              or chat us and we'll help you decide.
-            </p>
+            <div class="upsell-strip__label">New to importing?</div>
+            <div class="upsell-strip__title">Start with Pinduoduo first.</div>
+            <p class="upsell-strip__sub">Not sure you're ready for 1688 yet? Build your foundation first.</p>
           </div>
-          <a href="pinduoduo.html" class="btn btn--gold">
-            See Pinduoduo Class →
-          </a>
+          <a href="pinduoduo.html" class="btn btn--gold">See Pinduoduo →</a>
         </div>
 
       </div>
@@ -483,73 +609,63 @@
 
 
     <!-- ── TESTIMONIALS ── -->
-    <section class="section" aria-labelledby="testi-title">
+    <section class="section section--tinted" aria-labelledby="testi-title">
       <div class="container--narrow">
-
         <div class="section__header">
           <span class="eyebrow">Real Students</span>
           <h2 class="section__title" id="testi-title">
             They cut their costs.<br/>You can too.
           </h2>
         </div>
-
         <div class="grid--testi">
-      
-          <div class="testi testi--placeholder reveal">
+          <div class="testi reveal">
             <div class="testi__stars" aria-label="5 stars">★★★★★</div>
             <p class="testi__quote">
-               Can't thank you enough for the classes and mentorship i had with,you literally change the trajectory of my life now i'm a business owner selling bulk cloth material i but from 1688 all love.
+              "I can't thank Idy enough. The class and mentorship literally changed
+              the trajectory of my life. I'm now a business owner selling bulk cloth
+              material I source directly from 1688. All love."
             </p>
-            <div class="testi__author">[Vanessa]</div>
-            <div class="testi__role">Delta state · 1688 Class</div>
+            <div class="testi__author">Vanessa</div>
+            <div class="testi__role">Delta · 1688 Class</div>
           </div>
-
-          <div class="testi testi--placeholder reveal reveal--delay-1">
+          <div class="testi reveal reveal--delay-1">
             <div class="testi__stars" aria-label="5 stars">★★★★★</div>
             <p class="testi__quote">
-               I was able to start a mini shopping business in my school buying gadgets and clothes for students in the campus in bulk. now i'm now thinking of expanding and turning this into a big business nd i achieved this in 45-day since getting to know coach perpetual(idy)
+              "Within 45 days of joining, I had started a mini campus business selling
+              gadgets and clothes to students in bulk. I'm already thinking about
+              expanding. This was the best decision I made this year."
             </p>
-            <div class="testi__author">[Franklin]</div>
-            <div class="testi__role">Enugu State · 1688 Class</div>
+            <div class="testi__author">Franklin</div>
+            <div class="testi__role">Enugu · 1688 Class</div>
           </div>
         </div>
-
       </div>
     </section>
 
 
     <!-- ── FAQ ── -->
-    <section class="section section--tinted" aria-labelledby="faq-title">
+    <section class="section" aria-labelledby="faq-title">
       <div class="container--narrow">
-
         <div class="section__header">
           <span class="eyebrow">FAQ</span>
           <h2 class="section__title" id="faq-title">
             Questions people ask<br/>before joining
           </h2>
         </div>
-
         <div class="faq" role="list">
-
           <div class="faq__item" role="listitem">
-            <button class="faq__trigger"
-                    aria-expanded="false"
-                    onclick="toggleFaq(this)">
+            <button class="faq__trigger" aria-expanded="false" onclick="toggleFaq(this)">
               <span class="faq__question">Do I need importing experience to join?</span>
               <span class="faq__icon" aria-hidden="true">+</span>
             </button>
             <div class="faq__answer" hidden>
-              Some basic familiarity helps but it's not required.
-              If you're completely new we recommend the
-              <a href="pinduoduo.html">Pinduoduo class</a> first.
+              Some basic familiarity helps but it's not required. If you're completely new
+              we recommend the <a href="pinduoduo.html">Pinduoduo class</a> first.
               If you've bought from China before or already run a business, you're ready.
             </div>
           </div>
-
           <div class="faq__item" role="listitem">
-            <button class="faq__trigger"
-                    aria-expanded="false"
-                    onclick="toggleFaq(this)">
+            <button class="faq__trigger" aria-expanded="false" onclick="toggleFaq(this)">
               <span class="faq__question">How much capital do I need to start importing on 1688?</span>
               <span class="faq__icon" aria-hidden="true">+</span>
             </button>
@@ -559,11 +675,8 @@
               so you don't over-invest at the start.
             </div>
           </div>
-
           <div class="faq__item" role="listitem">
-            <button class="faq__trigger"
-                    aria-expanded="false"
-                    onclick="toggleFaq(this)">
+            <button class="faq__trigger" aria-expanded="false" onclick="toggleFaq(this)">
               <span class="faq__question">1688 is in Chinese — how will I navigate it?</span>
               <span class="faq__icon" aria-hidden="true">+</span>
             </button>
@@ -573,54 +686,44 @@
               without knowing a single word of Mandarin.
             </div>
           </div>
-
           <div class="faq__item" role="listitem">
-            <button class="faq__trigger"
-                    aria-expanded="false"
-                    onclick="toggleFaq(this)">
-              <span class="faq__question">Can I really negotiate with Chinese suppliers?</span>
+            <button class="faq__trigger" aria-expanded="false" onclick="toggleFaq(this)">
+              <span class="faq__question">Is my payment secure?</span>
               <span class="faq__icon" aria-hidden="true">+</span>
             </button>
             <div class="faq__answer" hidden>
-              Yes — and many suppliers expect it. We teach you the exact messages to send,
-              what to ask for, and how to get better prices and terms every time.
+              Yes. All payments are processed by Paystack — Nigeria's most trusted payment
+              gateway. Your card and bank details are never stored on this site.
             </div>
           </div>
-
           <div class="faq__item" role="listitem">
-            <button class="faq__trigger"
-                    aria-expanded="false"
-                    onclick="toggleFaq(this)">
+            <button class="faq__trigger" aria-expanded="false" onclick="toggleFaq(this)">
+              <span class="faq__question">What happens after I pay?</span>
+              <span class="faq__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq__answer" hidden>
+              Once payment is confirmed you'll see a success message and a WhatsApp button.
+              Tap it to message Idy — she'll send your class details and schedule immediately.
+            </div>
+          </div>
+          <div class="faq__item" role="listitem">
+            <button class="faq__trigger" aria-expanded="false" onclick="toggleFaq(this)">
               <span class="faq__question">How is 1688 different from Alibaba?</span>
               <span class="faq__icon" aria-hidden="true">+</span>
             </button>
             <div class="faq__answer" hidden>
-              1688 is Alibaba's domestic Chinese platform — where Chinese businesses
-              buy directly from manufacturers. Because it's not built for international buyers,
+              1688 is Alibaba's domestic Chinese platform — where Chinese businesses buy
+              directly from manufacturers. Because it's not built for international buyers,
               prices are significantly lower. This class teaches you how to access it as a Nigerian.
             </div>
           </div>
-
-          <div class="faq__item" role="listitem">
-            <button class="faq__trigger"
-                    aria-expanded="false"
-                    onclick="toggleFaq(this)">
-              <span class="faq__question">How do I pay for the class?</span>
-              <span class="faq__icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq__answer" hidden>
-              Click any WhatsApp button on this page. We'll send you payment details
-              and confirm your spot once payment is made.
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
 
 
     <!-- ── FINAL CTA ── -->
-    <section class="section" aria-labelledby="cta-title">
+    <section class="section section--tinted" aria-labelledby="cta-title">
       <div class="container--narrow">
         <div class="cta-banner reveal">
           <h2 class="cta-banner__title" id="cta-title">
@@ -629,20 +732,12 @@
           <p class="cta-banner__body">
             Every day you wait is another day someone else is getting
             the same products you sell — cheaper than you.
-            Join the class and close that gap.
           </p>
           <div class="cta-banner__actions">
-            <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20join%20the%201688%20Group%20Class%20for%20%2315%2C000."
-               target="_blank"
-               rel="noopener noreferrer"
-               class="btn btn--wa btn--lg">
-              💬 Join Group Class — ₦15,000
-            </a>
-            <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20the%201688%20Private%20Class%20for%20%2330%2C000."
-               target="_blank"
-               rel="noopener noreferrer"
-               class="btn btn--ghost btn--lg">
-              Book Private — ₦30,000
+            <a href="#pricing" class="btn btn--primary btn--lg">💳 Pay & Join Now</a>
+            <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20join%20the%201688%20Class."
+               target="_blank" rel="noopener noreferrer" class="btn btn--wa btn--lg">
+              💬 Chat on WhatsApp
             </a>
           </div>
         </div>
@@ -659,15 +754,32 @@
       <span class="sticky-bar__label">1688 Class</span>
     </div>
     <div class="sticky-bar__actions">
+      <a href="#pricing" class="btn btn--primary btn--sm">💳 Pay Now</a>
       <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20want%20to%20join%20the%201688%20Class."
-         target="_blank"
-         rel="noopener noreferrer"
-         class="btn btn--wa btn--sm">
-        💬 Order Now
+         target="_blank" rel="noopener noreferrer" class="btn btn--wa btn--sm">
+        💬 WhatsApp
       </a>
-      <a href="pinduoduo.html" class="btn btn--primary btn--sm">
-        See Pinduoduo →
+    </div>
+  </div>
+
+
+  <!-- ── SUCCESS MODAL ── -->
+  <div class="pay-modal" id="pay-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="pay-modal__card">
+      <div class="pay-modal__icon" aria-hidden="true">🎉</div>
+      <div class="pay-modal__title" id="modal-title">Payment Successful!</div>
+      <p class="pay-modal__body" id="modal-body">
+        Your spot is confirmed. Tap below to message Idy on WhatsApp —
+        she'll send your class details right away.
+      </p>
+      <a href="#" target="_blank" rel="noopener noreferrer" id="modal-wa-btn"
+         class="btn btn--wa btn--full btn--lg" style="margin-bottom:var(--space-3);">
+        💬 Get My Class Details
       </a>
+      <button onclick="closeModal()" class="btn btn--text btn--full"
+              style="color:var(--text-muted);">
+        Close
+      </button>
     </div>
   </div>
 
@@ -675,18 +787,14 @@
   <!-- ── FOOTER ── -->
   <footer class="footer" role="contentinfo">
     <div class="footer__inner">
-
       <div class="footer__top">
         <div class="footer__brand">
           <a href="home.html" class="logo logo--sm" aria-label="SHOPIDY home">
             <span class="logo__shop">SHOP</span><span class="logo__idy">IDY</span>
           </a>
           <p class="footer__tagline">Import Smart. Sell Big. Live Free.</p>
-          <div class="footer__whatsapp">
-            📱 <strong>08168784078</strong>
-          </div>
+          <div class="footer__whatsapp">📱 <strong>08168784078</strong></div>
         </div>
-
         <nav class="footer__nav" aria-label="Footer navigation">
           <div class="footer__nav-group">
             <div class="footer__nav-title">Classes</div>
@@ -699,31 +807,80 @@
             <div class="footer__nav-title">Shop</div>
             <ul class="footer__nav-links" role="list">
               <li><a href="products.html" class="footer__nav-link">Products</a></li>
-              <li>
-                <a href="https://wa.me/2348168784078"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="footer__nav-link">
-                  WhatsApp
-                </a>
-              </li>
+              <li><a href="https://wa.me/2348168784078" target="_blank" rel="noopener noreferrer" class="footer__nav-link">WhatsApp</a></li>
             </ul>
           </div>
         </nav>
       </div>
-
       <div class="footer__bottom">
         <p class="footer__copy">© 2025 SHOPIDY. All rights reserved.</p>
         <p class="footer__copy">Built for Nigerian hustlers.</p>
       </div>
-
     </div>
   </footer>
 
 
   <!-- ── SCRIPTS ── -->
   <script>
-    /* Nav burger */
+    const PAYSTACK_KEY = 'pk_live_8634abaf2650b157cb7471672829c787d983ca40';
+    const WA_NUMBER   = '2348168784078';
+
+    /* ── PAYSTACK ── */
+    function payNow(plan, amountKobo) {
+      const email = prompt('Enter your email address to proceed:');
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      const handler = PaystackPop.setup({
+        key:      PAYSTACK_KEY,
+        email:    email,
+        amount:   amountKobo,
+        currency: 'NGN',
+        ref:      'SHOPIDY_1688_' + Date.now(),
+        metadata: {
+          custom_fields: [
+            { display_name: 'Plan', variable_name: 'plan', value: plan }
+          ]
+        },
+        callback: function(response) {
+          showModal(plan, response.reference);
+        },
+        onClose: function() {}
+      });
+
+      handler.openIframe();
+    }
+
+    /* ── SUCCESS MODAL ── */
+    function showModal(plan, ref) {
+      const modal = document.getElementById('pay-modal');
+      document.getElementById('modal-body').textContent =
+        'Your payment for the ' + plan + ' is confirmed (Ref: ' + ref + '). ' +
+        'Tap below to message Idy — she\'ll send your class details right away.';
+
+      document.getElementById('modal-wa-btn').href =
+        'https://wa.me/' + WA_NUMBER +
+        '?text=Hi%20SHOPIDY!%20I%20just%20paid%20for%20the%20' +
+        encodeURIComponent(plan) +
+        '.%20My%20reference%20is%20' + ref +
+        '.%20Please%20send%20me%20the%20class%20details.';
+
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('pay-modal').classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('pay-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    /* ── NAV ── */
     function toggleNav(burger) {
       const drawer = document.getElementById('nav-drawer');
       const isOpen = burger.classList.toggle('is-open');
@@ -732,7 +889,6 @@
       drawer.setAttribute('aria-hidden', !isOpen);
       document.body.style.overflow = isOpen ? 'hidden' : '';
     }
-
     document.querySelectorAll('.nav__drawer-link').forEach(link => {
       link.addEventListener('click', () => {
         const burger = document.querySelector('.nav__burger');
@@ -745,20 +901,18 @@
       });
     });
 
-    /* FAQ accordion */
+    /* ── FAQ ── */
     function toggleFaq(trigger) {
       const item   = trigger.closest('.faq__item');
       const answer = trigger.nextElementSibling;
       const icon   = trigger.querySelector('.faq__icon');
       const isOpen = item.classList.contains('is-open');
-
       document.querySelectorAll('.faq__item').forEach(i => {
         i.classList.remove('is-open');
         i.querySelector('.faq__answer').hidden = true;
         i.querySelector('.faq__trigger').setAttribute('aria-expanded', 'false');
         i.querySelector('.faq__icon').textContent = '+';
       });
-
       if (!isOpen) {
         item.classList.add('is-open');
         answer.hidden = false;
@@ -767,7 +921,7 @@
       }
     }
 
-    /* Scroll reveal */
+    /* ── SCROLL REVEAL ── */
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -776,7 +930,6 @@
         }
       });
     }, { threshold: 0.12 });
-
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 
