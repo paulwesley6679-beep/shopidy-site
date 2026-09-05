@@ -6,41 +6,29 @@
   <meta name="description" content="SHOPIDY — Import Smart. Sell Big. Live Free. Importation classes and quality products for Nigerians."/>
   <title>SHOPIDY — Links</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet"/>
 
   <style>
-    /* ── TOKENS ── */
     :root {
-      --navy:        #102A4C;
-      --navy-deep:   #0E1C2F;
-      --navy-mid:    #1B3F6B;
-      --blue:        #1D5FA8;
-      --sky:         #4A9EDB;
-      --sky-pale:    #D5EAF8;
-      --gold:        #C9831A;
-      --gold-bg:     #FEF0D6;
-      --wa:          #075E54;
-      --wa-hover:    #0A8070;
-      --white:       #FFFFFF;
-      --surface:     #F7F9FC;
-      --border-dark: rgba(255,255,255,0.08);
-      --text-soft:   rgba(184,212,238,0.75);
-      --font-sans:   'Plus Jakarta Sans', system-ui, sans-serif;
-      --font-display:'Syne', sans-serif;
-      --ease:        cubic-bezier(0.22, 1, 0.36, 1);
+      --navy:      #102A4C;
+      --navy-deep: #080F1A;
+      --navy-mid:  #1B3F6B;
+      --blue:      #1D5FA8;
+      --sky:       #4A9EDB;
+      --gold:      #C9831A;
+      --wa:        #075E54;
+      --white:     #FFFFFF;
+      --border:    rgba(255,255,255,0.07);
+      --text-soft: rgba(184,212,238,0.7);
+      --font-sans:    'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-display: 'Syne', sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html {
-      font-size: 100%;
-      -webkit-text-size-adjust: 100%;
-      scroll-behavior: smooth;
-    }
+    html { font-size: 100%; -webkit-text-size-adjust: 100%; }
 
     body {
       font-family: var(--font-sans);
@@ -54,34 +42,16 @@
       overflow-x: hidden;
     }
 
-    /* background glow blobs */
-    body::before {
-      content: '';
+    /* ── CANVAS ── */
+    #bg {
       position: fixed;
-      top: -120px;
-      right: -120px;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(74,158,219,0.12) 0%, transparent 70%);
-      pointer-events: none;
+      inset: 0;
+      width: 100%; height: 100%;
       z-index: 0;
+      pointer-events: none;
     }
 
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: -80px;
-      left: -80px;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,131,26,0.07) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── WRAPPER ── */
+    /* ── CONTENT ── */
     .wrap {
       width: 100%;
       max-width: 420px;
@@ -93,26 +63,61 @@
     .profile {
       text-align: center;
       margin-bottom: 2.5rem;
-      animation: fadeUp 0.5s var(--ease) both;
+      animation: fadeUp 0.7s 0.1s var(--ease) both;
     }
 
-    .profile__avatar {
-      width: 80px;
-      height: 80px;
+    .avatar-ring {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* spinning gradient ring */
+    .avatar-ring::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 0deg,
+        var(--sky),
+        var(--gold),
+        var(--blue),
+        var(--sky)
+      );
+      animation: spin 3s linear infinite;
+      z-index: 0;
+    }
+
+    .avatar-ring::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: var(--navy-deep);
+      z-index: 1;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .avatar-inner {
+      position: relative;
+      z-index: 2;
+      width: 76px; height: 76px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--sky) 0%, var(--navy-mid) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1rem;
-      border: 2px solid rgba(74,158,219,0.3);
-      box-shadow: 0 0 0 6px rgba(74,158,219,0.06);
     }
 
-    /* ── LOGO ── */
     .logo {
       font-family: var(--font-display);
-      font-size: 1.375rem;
+      font-size: 1.125rem;
       font-weight: 800;
       color: var(--white);
       letter-spacing: -0.02em;
@@ -130,137 +135,186 @@
     .logo__idy::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2.5px;
+      bottom: 0; left: 0;
+      width: 100%; height: 2.5px;
       background: var(--gold);
       border-radius: 999px;
     }
 
+    .profile__name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.01em;
+    }
+
     .profile__handle {
-      font-family: var(--font-sans);
       font-size: 0.8125rem;
       color: var(--text-soft);
-      margin-top: 0.375rem;
-      letter-spacing: 0.03em;
+      margin-top: 0.25rem;
     }
 
     .profile__bio {
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       color: var(--text-soft);
-      line-height: 1.7;
-      margin-top: 0.75rem;
+      line-height: 1.75;
+      margin-top: 0.625rem;
       max-width: 300px;
       margin-inline: auto;
     }
 
-    /* ── SECTION LABEL ── */
-    .section-label {
-      font-family: var(--font-sans);
+    /* ── STAT PILLS ── */
+    .stat-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      background: rgba(74,158,219,0.1);
+      border: 1px solid rgba(74,158,219,0.2);
+      border-radius: 999px;
+      padding: 4px 12px;
       font-size: 0.6875rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      color: var(--sky);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: rgba(74,158,219,0.5);
-      margin-bottom: 0.625rem;
+      color: rgba(74,158,219,0.4);
+      margin-bottom: 0.5rem;
       padding-left: 0.25rem;
     }
 
     .links-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.375rem;
+      animation: fadeUp 0.6s var(--ease) both;
     }
+    .links-group:nth-child(2) { animation-delay: 0.15s; }
+    .links-group:nth-child(3) { animation-delay: 0.22s; }
+    .links-group:nth-child(4) { animation-delay: 0.29s; }
+    .links-group:nth-child(5) { animation-delay: 0.36s; }
 
     /* ── LINK CARD ── */
     .link-card {
       display: flex;
       align-items: center;
       gap: 0.875rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border-dark);
-      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 15px;
       padding: 0.875rem 1rem;
-      margin-bottom: 0.625rem;
+      margin-bottom: 0.5rem;
       text-decoration: none;
       color: var(--white);
       position: relative;
       overflow: hidden;
       transition:
-        background 200ms var(--ease),
-        border-color 200ms var(--ease),
-        transform 150ms var(--ease);
+        background 220ms var(--ease),
+        border-color 220ms var(--ease),
+        transform 160ms var(--ease),
+        box-shadow 220ms var(--ease);
       -webkit-tap-highlight-color: transparent;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
-    .link-card:hover {
-      background: rgba(255,255,255,0.09);
-      border-color: rgba(74,158,219,0.35);
-      transform: translateY(-1px);
-    }
-
-    .link-card:active {
-      transform: scale(0.98);
-    }
-
-    /* shimmer on tap */
     .link-card::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
-      transform: translateX(-100%);
-      transition: transform 400ms var(--ease);
+      border-radius: inherit;
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.05) 0%,
+        transparent 60%
+      );
+      pointer-events: none;
     }
 
-    .link-card:hover::after {
-      transform: translateX(100%);
+    /* shimmer */
+    .link-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -120%;
+      width: 80%; height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.06),
+        transparent
+      );
+      transition: left 0.6s var(--ease);
+      pointer-events: none;
     }
 
-    /* hot badge */
+    .link-card:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(74,158,219,0.45);
+      transform: translateY(-2px) scale(1.005);
+      box-shadow:
+        0 12px 40px rgba(10,28,47,0.5),
+        0 0 0 1px rgba(74,158,219,0.1) inset;
+    }
+    .link-card:hover::before { left: 140%; }
+    .link-card:active { transform: scale(0.98); }
+
+    /* card variants */
     .link-card--hot {
-      border-color: rgba(201,131,26,0.3);
+      border-color: rgba(201,131,26,0.25);
       background: rgba(201,131,26,0.06);
     }
-
     .link-card--hot:hover {
-      border-color: rgba(201,131,26,0.5);
-      background: rgba(201,131,26,0.1);
+      border-color: rgba(201,131,26,0.6);
+      background: rgba(201,131,26,0.11);
+      box-shadow: 0 12px 40px rgba(201,131,26,0.2), 0 0 0 1px rgba(201,131,26,0.1) inset;
     }
 
-    /* wa card */
     .link-card--wa {
       border-color: rgba(7,94,84,0.4);
       background: rgba(7,94,84,0.15);
     }
-
     .link-card--wa:hover {
-      border-color: rgba(37,211,102,0.4);
+      border-color: rgba(37,211,102,0.5);
       background: rgba(7,94,84,0.25);
+      box-shadow: 0 12px 40px rgba(37,211,102,0.12), 0 0 0 1px rgba(37,211,102,0.08) inset;
     }
 
-    /* ── CARD ICON ── */
+    .link-card--proc {
+      border-color: rgba(74,158,219,0.22);
+      background: rgba(29,95,168,0.1);
+    }
+    .link-card--proc:hover {
+      border-color: rgba(74,158,219,0.55);
+      background: rgba(29,95,168,0.18);
+    }
+
+    /* ── CARD PARTS ── */
     .link-card__icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 11px;
+      width: 46px; height: 46px;
+      border-radius: 12px;
       background: rgba(255,255,255,0.07);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.375rem;
       flex-shrink: 0;
+      transition: transform 200ms var(--ease);
+      position: relative; z-index: 1;
     }
+    .link-card:hover .link-card__icon { transform: scale(1.1) rotate(-3deg); }
+    .link-card--hot  .link-card__icon { background: rgba(201,131,26,0.14); }
+    .link-card--wa   .link-card__icon { background: rgba(7,94,84,0.3); }
+    .link-card--proc .link-card__icon { background: rgba(74,158,219,0.14); }
 
-    .link-card--hot .link-card__icon {
-      background: rgba(201,131,26,0.15);
-    }
-
-    .link-card--wa .link-card__icon {
-      background: rgba(7,94,84,0.3);
-    }
-
-    /* ── CARD TEXT ── */
-    .link-card__text { flex: 1; min-width: 0; }
+    .link-card__text { flex: 1; min-width: 0; position: relative; z-index: 1; }
 
     .link-card__title {
       font-family: var(--font-display);
@@ -287,185 +341,422 @@
       color: var(--sky);
       margin-top: 0.2rem;
     }
+    .link-card--hot  .link-card__price { color: var(--gold); }
 
-    .link-card--hot .link-card__price {
-      color: var(--gold);
-    }
-
-    /* ── CARD ARROW ── */
     .link-card__arrow {
-      font-size: 1.125rem;
-      color: rgba(255,255,255,0.2);
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.15);
       flex-shrink: 0;
+      position: relative; z-index: 1;
       transition: color 200ms var(--ease), transform 200ms var(--ease);
     }
-
     .link-card:hover .link-card__arrow {
-      color: rgba(255,255,255,0.5);
-      transform: translateX(2px);
+      color: rgba(255,255,255,0.6);
+      transform: translateX(4px);
     }
 
-    /* ── HOT PILL ── */
+    /* hot pill */
     .hot-pill {
       position: absolute;
-      top: 10px;
-      right: 36px;
+      top: 10px; right: 38px;
       background: var(--gold);
       color: var(--white);
       font-family: var(--font-display);
-      font-size: 0.625rem;
+      font-size: 0.5625rem;
       font-weight: 800;
       letter-spacing: 0.06em;
       padding: 2px 8px;
       border-radius: 999px;
+      z-index: 2;
+      animation: hotPulse 2s ease-in-out infinite;
     }
-
-    /* ── DIVIDER ── */
-    .divider {
-      height: 1px;
-      background: var(--border-dark);
-      margin: 1.25rem 0;
+    @keyframes hotPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(201,131,26,0.4); }
+      50%       { box-shadow: 0 0 0 5px rgba(201,131,26,0); }
     }
 
     /* ── FOOTER ── */
     .bio-footer {
       text-align: center;
-      margin-top: 2rem;
-      animation: fadeUp 0.5s 0.4s var(--ease) both;
+      margin-top: 1.75rem;
+      animation: fadeUp 0.5s 0.5s var(--ease) both;
     }
-
     .bio-footer__text {
-      font-size: 0.6875rem;
-      color: rgba(255,255,255,0.2);
-      letter-spacing: 0.04em;
+      font-size: 0.625rem;
+      color: rgba(255,255,255,0.15);
+      letter-spacing: 0.05em;
     }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .link-card:nth-child(1) { animation: fadeUp 0.4s 0.05s var(--ease) both; }
-    .link-card:nth-child(2) { animation: fadeUp 0.4s 0.10s var(--ease) both; }
-    .link-card:nth-child(3) { animation: fadeUp 0.4s 0.15s var(--ease) both; }
-    .link-card:nth-child(4) { animation: fadeUp 0.4s 0.20s var(--ease) both; }
-    .link-card:nth-child(5) { animation: fadeUp 0.4s 0.25s var(--ease) both; }
-
-    .links-group { animation: fadeUp 0.4s 0.08s var(--ease) both; }
-    .links-group + .links-group { animation-delay: 0.18s; }
-    .links-group + .links-group + .links-group { animation-delay: 0.28s; }
-
-    /* respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
-      *, .link-card, .profile, .bio-footer, .links-group {
+      *, *::before, *::after {
         animation: none !important;
         transition: none !important;
       }
+      #bg { display: none; }
+      body { background: var(--navy); }
     }
   </style>
 </head>
 <body>
-<div class="wrap">
 
-  <!-- ── PROFILE ── -->
-  <div class="profile">
-    <div class="profile__avatar" aria-hidden="true">
-      <!-- swap with <img> tag when she has a profile photo -->
-      <a href="home.html" class="logo">
-        SHOP<span class="logo__idy">IDY</span>
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <div class="wrap">
+
+    <!-- PROFILE -->
+    <div class="profile">
+      <div class="avatar-ring">
+        <div class="avatar-inner">
+          <a href="home.html" class="logo" aria-label="SHOPIDY home">
+            SHOP<span class="logo__idy">IDY</span>
+          </a>
+        </div>
+      </div>
+      <div class="profile__name">SHOPIDY</div>
+      <div class="profile__handle">@shopidy</div>
+      <p class="profile__bio">
+        🇨🇳 Importation classes · Personal shopping<br/>
+        📦 Quality products shipped to your door<br/>
+        🇳🇬 Built for Nigerian hustlers
+      </p>
+      <div class="stat-row">
+        <span class="stat-pill">500+ Students</span>
+        <span class="stat-pill">2 Platforms</span>
+        <span class="stat-pill">🔥 Verified</span>
+      </div>
+    </div>
+
+
+    <!-- CLASSES -->
+    <div class="links-group">
+      <div class="section-label">Importation Classes</div>
+
+      <a href="pinduoduo.html" class="link-card">
+        <div class="link-card__icon">📱</div>
+        <div class="link-card__text">
+          <div class="link-card__title">Pinduoduo Class</div>
+          <div class="link-card__sub">Beginner-friendly · Low capital start</div>
+          <div class="link-card__price">From ₦10,000</div>
+        </div>
+        <div class="link-card__arrow">›</div>
+      </a>
+
+      <a href="1688.html" class="link-card">
+        <div class="link-card__icon">🏭</div>
+        <div class="link-card__text">
+          <div class="link-card__title">1688 Class</div>
+          <div class="link-card__sub">Bulk importing · Factory-direct prices</div>
+          <div class="link-card__price">From ₦15,000</div>
+        </div>
+        <div class="link-card__arrow">›</div>
       </a>
     </div>
-    <p class="profile__handle">@shopidy</p>
-    <p class="profile__bio">
-      🇨🇳 Importation classes for beginners & business owners<br/>
-      📦 Quality products shipped to your door<br/>
-      🇳🇬 Built for Nigerian hustlers
-    </p>
+
+
+    <!-- PROCUREMENT -->
+    <div class="links-group">
+      <div class="section-label">Personal Shopping</div>
+
+      <a href="procurement.html" class="link-card link-card--proc">
+        <div class="link-card__icon">🛒</div>
+        <div class="link-card__text">
+          <div class="link-card__title">Procurement Service</div>
+          <div class="link-card__sub">Send links or pictures · We handle everything</div>
+          <div class="link-card__price">From 7% service fee</div>
+        </div>
+        <div class="link-card__arrow">›</div>
+      </a>
+    </div>
+
+
+    <!-- PRODUCTS -->
+    <div class="links-group">
+      <div class="section-label">Products</div>
+
+      <a href="products.html#blender" class="link-card link-card--hot">
+        <div class="link-card__icon">🥤</div>
+        <div class="link-card__text">
+          <div class="link-card__title">Portable Rechargeable Blender</div>
+          <div class="link-card__sub">Works without NEPA · Blend anywhere</div>
+          <div class="link-card__price">₦21,000</div>
+        </div>
+        <span class="hot-pill">🔥 HOT</span>
+        <div class="link-card__arrow">›</div>
+      </a>
+
+      <a href="products.html#washer" class="link-card">
+        <div class="link-card__icon">🧺</div>
+        <div class="link-card__text">
+          <div class="link-card__title">4.5KG Mini Washing Machine</div>
+          <div class="link-card__sub">Compact · Perfect for students & small spaces</div>
+          <div class="link-card__price">₦70,000</div>
+        </div>
+        <div class="link-card__arrow">›</div>
+      </a>
+    </div>
+
+
+    <!-- WHATSAPP -->
+    <div class="links-group">
+      <div class="section-label">Talk to Us</div>
+
+      <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20found%20you%20on%20TikTok%20and%20I%27d%20like%20to%20know%20more."
+         target="_blank" rel="noopener noreferrer"
+         class="link-card link-card--wa">
+        <div class="link-card__icon">💬</div>
+        <div class="link-card__text">
+          <div class="link-card__title">Chat on WhatsApp</div>
+          <div class="link-card__sub">Ask questions · Place orders · Get help</div>
+        </div>
+        <div class="link-card__arrow">›</div>
+      </a>
+    </div>
+
+
+    <div class="bio-footer">
+      <p class="bio-footer__text">© 2025 SHOPIDY · Import Smart. Sell Big. Live Free.</p>
+    </div>
+
   </div>
 
 
-  <!-- ── CLASSES ── -->
-  <div class="links-group">
-    <div class="section-label">Importation Classes</div>
+  <script>
+  (function () {
+    const canvas = document.getElementById('bg');
+    const ctx    = canvas.getContext('2d');
+    let W, H;
 
-    <a href="pinduoduo.html" class="link-card" aria-label="Pinduoduo Class — From ₦10,000">
-      <div class="link-card__icon" aria-hidden="true">📱</div>
-      <div class="link-card__text">
-        <div class="link-card__title">Pinduoduo Class</div>
-        <div class="link-card__sub">Beginner-friendly · Low capital start</div>
-        <div class="link-card__price">From ₦10,000</div>
-      </div>
-      <div class="link-card__arrow" aria-hidden="true">›</div>
-    </a>
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
 
-    <a href="1688.html" class="link-card" aria-label="1688 Class — From ₦15,000">
-      <div class="link-card__icon" aria-hidden="true">🏭</div>
-      <div class="link-card__text">
-        <div class="link-cshopidy-siteard__title">1688 Class</div>
-        <div class="link-card__sub">Bulk importing · Factory-direct prices</div>
-        <div class="link-card__price">From ₦15,000</div>
-      </div>
-      <div class="link-card__arrow" aria-hidden="true">›</div>
-    </a>
-  </div>
+    /* ── AURORA WAVES ── */
+    class Aurora {
+      constructor(hue, y, amp, speed, alpha) {
+        this.hue   = hue;
+        this.y     = y;
+        this.amp   = amp;
+        this.speed = speed;
+        this.alpha = alpha;
+        this.t     = Math.random() * 1000;
+      }
+      draw() {
+        this.t += this.speed;
+        ctx.beginPath();
+        ctx.moveTo(0, H);
+        for (let x = 0; x <= W; x += 4) {
+          const y = this.y
+            + Math.sin(x * 0.006 + this.t * 0.8) * this.amp
+            + Math.sin(x * 0.003 + this.t * 0.5) * (this.amp * 0.5)
+            + Math.sin(x * 0.001 + this.t * 0.3) * (this.amp * 0.3);
+          ctx.lineTo(x, y);
+        }
+        ctx.lineTo(W, H);
+        ctx.closePath();
+        const g = ctx.createLinearGradient(0, this.y - this.amp, 0, this.y + this.amp * 2);
+        g.addColorStop(0, `hsla(${this.hue},80%,55%,${this.alpha})`);
+        g.addColorStop(1, `hsla(${this.hue},80%,30%,0)`);
+        ctx.fillStyle = g;
+        ctx.fill();
+      }
+    }
 
+    /* ── ORB ── */
+    class Orb {
+      constructor() { this.reset(true); }
+      reset(init) {
+        this.x  = Math.random() * W;
+        this.y  = init ? Math.random() * H : H + 100;
+        this.r  = 80 + Math.random() * 200;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = -(0.15 + Math.random() * 0.3);
+        this.hue   = [210, 195, 38, 220][Math.floor(Math.random() * 4)];
+        this.alpha = 0.06 + Math.random() * 0.1;
+        this.pulse = Math.random() * Math.PI * 2;
+        this.pulseSpeed = 0.008 + Math.random() * 0.01;
+      }
+      draw() {
+        this.x    += this.vx;
+        this.y    += this.vy;
+        this.pulse += this.pulseSpeed;
+        const pr = this.r + Math.sin(this.pulse) * (this.r * 0.12);
+        if (this.y + pr < -10) this.reset(false);
+        if (this.x < -pr) this.x = W + pr;
+        if (this.x > W + pr) this.x = -pr;
+        const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, pr);
+        g.addColorStop(0,   `hsla(${this.hue},75%,55%,${this.alpha})`);
+        g.addColorStop(0.4, `hsla(${this.hue},75%,45%,${this.alpha * 0.5})`);
+        g.addColorStop(1,   `hsla(${this.hue},75%,35%,0)`);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, pr, 0, Math.PI * 2);
+        ctx.fillStyle = g;
+        ctx.fill();
+      }
+    }
 
-  <!-- ── PRODUCTS ── -->
-  <div class="links-group">
-    <div class="section-label">Products</div>
+    /* ── STAR ── */
+    class Star {
+      constructor() { this.reset(true); }
+      reset(init) {
+        this.x     = Math.random() * W;
+        this.y     = init ? Math.random() * H : Math.random() * H;
+        this.r     = 0.3 + Math.random() * 1.4;
+        this.alpha = 0.2 + Math.random() * 0.7;
+        this.twinkleSpeed = 0.02 + Math.random() * 0.04;
+        this.twinkle = Math.random() * Math.PI * 2;
+        this.hue = Math.random() < 0.3 ? 38 : 210;
+      }
+      draw() {
+        this.twinkle += this.twinkleSpeed;
+        const a = this.alpha * (0.5 + 0.5 * Math.sin(this.twinkle));
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${this.hue},70%,80%,${a})`;
+        ctx.fill();
+      }
+    }
 
-    <a href="products.html#blender"
-       class="link-card link-card--hot"
-       aria-label="Rechargeable Portable Blender — ₦21,000">
-      <div class="link-card__icon" aria-hidden="true">🥤</div>
-      <div class="link-card__text">
-        <div class="link-card__title">Portable Rechargeable Blender</div>
-        <div class="link-card__sub">Works without NEPA · Charge once, blend anywhere</div>
-        <div class="link-card__price">₦21,000</div>
-      </div>
-      <span class="hot-pill" aria-label="Hot product">🔥</span>
-      <div class="link-card__arrow" aria-hidden="true">›</div>
-    </a>
+    /* ── METEOR ── */
+    class Meteor {
+      constructor() { this.reset(); }
+      reset() {
+        this.x     = Math.random() * W * 1.5;
+        this.y     = -20;
+        this.len   = 80 + Math.random() * 120;
+        this.speed = 6 + Math.random() * 8;
+        this.angle = Math.PI / 4 + (Math.random() - 0.5) * 0.3;
+        this.alpha = 0;
+        this.life  = 0;
+        this.maxLife = 40 + Math.random() * 40;
+        this.active = false;
+        this.next  = 120 + Math.random() * 400;
+        this.timer = 0;
+      }
+      draw() {
+        this.timer++;
+        if (!this.active) {
+          if (this.timer > this.next) {
+            this.active = true;
+            this.x = Math.random() * W * 1.2;
+            this.y = -20;
+            this.life = 0;
+            this.alpha = 0;
+          }
+          return;
+        }
+        this.life++;
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y += Math.sin(this.angle) * this.speed;
+        this.alpha = this.life < 8
+          ? this.life / 8
+          : 1 - (this.life - 8) / (this.maxLife - 8);
+        if (this.alpha <= 0 || this.y > H + 20) { this.reset(); return; }
+        const tx = this.x - Math.cos(this.angle) * this.len;
+        const ty = this.y - Math.sin(this.angle) * this.len;
+        const g  = ctx.createLinearGradient(tx, ty, this.x, this.y);
+        g.addColorStop(0, `rgba(255,255,255,0)`);
+        g.addColorStop(0.7, `rgba(126,200,244,${this.alpha * 0.5})`);
+        g.addColorStop(1,   `rgba(255,255,255,${this.alpha})`);
+        ctx.beginPath();
+        ctx.moveTo(tx, ty);
+        ctx.lineTo(this.x, this.y);
+        ctx.strokeStyle = g;
+        ctx.lineWidth   = 1.5;
+        ctx.stroke();
+        /* head glow */
+        const hg = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, 4);
+        hg.addColorStop(0, `rgba(255,255,255,${this.alpha})`);
+        hg.addColorStop(1, `rgba(126,200,244,0)`);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = hg;
+        ctx.fill();
+      }
+    }
 
-    <a href="products.html#washer"
-       class="link-card"
-       aria-label="4.5KG Mini Washing Machine — ₦70,000">
-      <div class="link-card__icon" aria-hidden="true">🧺</div>
-      <div class="link-card__text">
-        <div class="link-card__title">4.5KG Mini Washing Machine</div>
-        <div class="link-card__sub">Compact · Perfect for students & small spaces</div>
-        <div class="link-card__price">₦70,000</div>
-      </div>
-      <div class="link-card__arrow" aria-hidden="true">›</div>
-    </a>
-  </div>
+    /* ── GRID ── */
+    class Grid {
+      constructor() { this.t = 0; }
+      draw() {
+        this.t += 0.003;
+        const sp = 55;
+        ctx.strokeStyle = `rgba(74,158,219,0.025)`;
+        ctx.lineWidth = 0.5;
+        const ox = (this.t * 8) % sp;
+        for (let x = -sp + ox; x < W + sp; x += sp) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+        }
+        const oy = (this.t * 5) % sp;
+        for (let y = -sp + oy; y < H + sp; y += sp) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+        }
+        /* glowing intersections */
+        ctx.fillStyle = `rgba(74,158,219,0.06)`;
+        for (let x = -sp + ox; x < W + sp; x += sp) {
+          for (let y = -sp + oy; y < H + sp; y += sp) {
+            ctx.beginPath();
+            ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+    }
 
+    /* ── INIT ── */
+    const auroras  = [
+      new Aurora(210, H * 0.55, 80,  0.006, 0.12),
+      new Aurora(195, H * 0.65, 60,  0.009, 0.09),
+      new Aurora(220, H * 0.45, 100, 0.004, 0.07),
+      new Aurora(38,  H * 0.70, 50,  0.011, 0.05),
+    ];
+    const orbs     = Array.from({ length: 10 }, () => new Orb());
+    const stars    = Array.from({ length: 80 }, () => new Star());
+    const meteors  = Array.from({ length: 3  }, () => new Meteor());
+    const grid     = new Grid();
 
-  <!-- ── WHATSAPP ── -->
-  <div class="links-group">
-    <div class="section-label">Talk to Us</div>
+    /* ── RENDER ── */
+    function render() {
+      /* deep space background */
+      ctx.fillStyle = '#080F1A';
+      ctx.fillRect(0, 0, W, H);
 
-    <a href="https://wa.me/2348168784078?text=Hi%20SHOPIDY!%20I%20found%20you%20on%20TikTok%20and%20I%27d%20like%20to%20know%20more."
-       target="_blank"
-       rel="noopener noreferrer"
-       class="link-card link-card--wa"
-       aria-label="Chat on WhatsApp">
-      <div class="link-card__icon" aria-hidden="true">💬</div>
-      <div class="link-card__text">
-        <div class="link-card__title">Chat on WhatsApp</div>
-        <div class="link-card__sub">Ask questions · Place orders · Get help</div>
-      </div>
-      <div class="link-card__arrow" aria-hidden="true">›</div>
-    </a>
-  </div>
+      /* grid */
+      grid.draw();
 
+      /* stars */
+      stars.forEach(s => s.draw());
 
-  <!-- ── FOOTER ── -->
-  <div class="bio-footer">
-    <p class="bio-footer__text">© 2025 SHOPIDY · Import Smart. Sell Big. Live Free.</p>
-  </div>
+      /* orbs */
+      orbs.forEach(o => o.draw());
 
-</div>
+      /* auroras */
+      auroras.forEach(a => a.draw());
+
+      /* meteors */
+      meteors.forEach(m => m.draw());
+
+      /* centre vignette punch — keeps content readable */
+      const vig = ctx.createRadialGradient(W/2, H/2, H * 0.1, W/2, H/2, H * 0.9);
+      vig.addColorStop(0, 'rgba(8,15,26,0.15)');
+      vig.addColorStop(1, 'rgba(8,15,26,0.72)');
+      ctx.fillStyle = vig;
+      ctx.fillRect(0, 0, W, H);
+
+      requestAnimationFrame(render);
+    }
+
+    render();
+  })();
+  </script>
+
 </body>
 </html>
